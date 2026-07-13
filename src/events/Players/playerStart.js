@@ -40,7 +40,7 @@ const createButtonRow = (client, paused) => {
 };
 
 function formatDuration(ms) {
-  if (!ms || ms === 0) return 'Unknown';
+  if (!ms || ms === 0) return 'Bilinmiyor';
 
   const seconds = Math.floor(ms / 1000);
   const minutes = Math.floor(seconds / 60);
@@ -53,13 +53,13 @@ function formatDuration(ms) {
 }
 
 function cleanAuthorName(author) {
-  if (!author) return 'Unknown Artist';
+  if (!author) return 'Bilinmeyen Sanatçı';
 
   return author.replace(/\s*-\s*Topic\s*$/i, '').trim();
 }
 
 function truncateTitle(title, maxLength = 30) {
-  if (!title) return 'Unknown Title';
+  if (!title) return 'Bilinmeyen Başlık';
   if (title.length <= maxLength) return title;
   return title.substring(0, maxLength) + '...';
 }
@@ -83,9 +83,9 @@ function buildNowPlayingContainer(client, track, paused) {
 
   const infoDisplay = new TextDisplayBuilder()
     .setContent(
-      `> - **Author:** [${cleanAuthorName(track.author)}](${track.uri || track.url})\n` +
-      `> - **Duration:** \`${formatDuration(track.length || track.duration || 0)}\`\n` +
-      `> - **Requester:** [${track.requester?.username}](https://discord.com/users/${track.requester?.id})`
+      `> - **Sanatçı:** [${cleanAuthorName(track.author)}](${track.uri || track.url})\n` +
+      `> - **Süre:** \`${formatDuration(track.length || track.duration || 0)}\`\n` +
+      `> - **Ekleyen:** [${track.requester?.username}](https://discord.com/users/${track.requester?.id})`
     );
 
   const section = new SectionBuilder()
@@ -209,7 +209,7 @@ async function handleButtonInteraction(interaction, player, client) {
 
         if (history.length === 0) {
           const display = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.info} No previous track found in history.**`);
+            .setContent(`**${client.emoji.info} Geçmişte önceki bir şarkı bulunamadı.**`);
           const container = new ContainerBuilder()
             .addTextDisplayComponents(display);
           return interaction.reply({
@@ -250,7 +250,7 @@ async function handleButtonInteraction(interaction, player, client) {
 
           if (alreadyLiked) {
             const display = new TextDisplayBuilder()
-              .setContent(`**${client.emoji.info} \`${currentLikeTrack.title}\` is already in your favourite list.**`);
+              .setContent(`**${client.emoji.info} \`${currentLikeTrack.title}\` zaten favori listende.**`);
             const container = new ContainerBuilder()
               .addTextDisplayComponents(display);
             return interaction.reply({
@@ -270,7 +270,7 @@ async function handleButtonInteraction(interaction, player, client) {
             client.db.liked.set(interaction.user.id, songs);
 
             const display = new TextDisplayBuilder()
-              .setContent(`**${client.emoji.check} Added \`${currentLikeTrack.title}\` to your favourite list.**`);
+              .setContent(`**${client.emoji.check} \`${currentLikeTrack.title}\` favori listene eklendi.**`);
             const container = new ContainerBuilder()
               .addTextDisplayComponents(display);
             return interaction.reply({
@@ -281,7 +281,7 @@ async function handleButtonInteraction(interaction, player, client) {
         } catch (dbError) {
           console.error('[Like Button] Error:', dbError);
           const display = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.cross} Failed to save song to favorites. Please try again.**`);
+            .setContent(`**${client.emoji.cross} Şarkı favorilere kaydedilemedi. Lütfen tekrar dene.**`);
           const container = new ContainerBuilder()
             .addTextDisplayComponents(display);
           return interaction.reply({
@@ -294,7 +294,7 @@ async function handleButtonInteraction(interaction, player, client) {
 
       default:
         const unknownDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.cross} Unknown button interaction.**`);
+          .setContent(`**${client.emoji.cross} Bilinmeyen buton etkileşimi.**`);
 
         const unknownContainer = new ContainerBuilder()
           .addTextDisplayComponents(unknownDisplay);
@@ -307,7 +307,7 @@ async function handleButtonInteraction(interaction, player, client) {
     }
   } catch (error) {
     const display = new TextDisplayBuilder()
-      .setContent(`**${client.emoji.cross} An error occurred while processing your request.**`);
+      .setContent(`**${client.emoji.cross} İsteğiniz işlenirken bir hata oluştu.**`);
     const container = new ContainerBuilder()
       .addTextDisplayComponents(display);
     if (!interaction.replied && !interaction.deferred) {
@@ -342,7 +342,7 @@ function setupMessageCollector(client, player, message) {
       try {
         if (!interaction.member?.voice?.channelId || interaction.member.voice.channelId !== player.voiceId) {
           const display = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.warn} You must be in the same voice channel as the bot.**`);
+            .setContent(`**${client.emoji.warn} Bot ile aynı ses kanalında olmalısınız.**`);
           const container = new ContainerBuilder()
             .addTextDisplayComponents(display);
           return interaction.reply({
@@ -417,7 +417,7 @@ module.exports = {
               name: `Player Started`,
               iconURL: client.user.displayAvatarURL()
             })
-            .setDescription(`**Server:** \`${guild.name}\`\n**ID:** \`${player.guildId}\``);
+            .setDescription(`**Sunucu:** \`${guild.name}\`\n**ID:** \`${player.guildId}\``);
 
           webhook.send({ embeds: [embed] }).catch(() => { });
         }

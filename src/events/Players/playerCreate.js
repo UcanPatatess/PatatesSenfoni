@@ -12,7 +12,7 @@ module.exports = {
 
     client.rest
       .put(`/channels/${player.voiceId}/voice-status`, {
-        body: { status: `use **${prefix}play** to add songs` },
+        body: { status: `şarkı eklemek için **${prefix}play** kullan` },
       })
       .catch(() => null);
 

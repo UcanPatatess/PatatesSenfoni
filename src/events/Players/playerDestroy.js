@@ -28,10 +28,10 @@ module.exports = {
       const embed = new EmbedBuilder()
         .setColor(client.color)
         .setAuthor({
-          name: `Player Destroyed`,
+          name: `Oynatıcı Kapatıldı`,
           iconURL: client.user.displayAvatarURL(),
         })
-        .setDescription(`**Id:** \`${guild.id}\`\n**Name:** \`${name ? name : 'Unknown'}\``);
+        .setDescription(`**Kimlik:** \`${guild.id}\`\n**İsim:** \`${name ? name : 'Bilinmiyor'}\``);
 
       await web1.send({ embeds: [embed] }).catch(() => null);
 

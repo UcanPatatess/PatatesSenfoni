@@ -38,7 +38,7 @@ module.exports = {
 
       if (!current) {
         const nothingDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.info} Nothing is playing right now.**`);
+          .setContent(`**${client.emoji.info} Şu anda hiçbir şey çalmıyor.**`);
 
         const container = new ContainerBuilder()
           .addTextDisplayComponents(nothingDisplay);
@@ -53,7 +53,7 @@ module.exports = {
       const currDuration = convertTime(current.length || 0);
 
       const headerDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.info} Now Playing**`);
+        .setContent(`**${client.emoji.info} Şu Anda Çalıyor**`);
 
       const separator1 = new SeparatorBuilder();
 
@@ -86,19 +86,19 @@ module.exports = {
       const row = new ActionRowBuilder().addComponents(
         new ButtonBuilder()
           .setCustomId("previous")
-          .setLabel("Previous")
+          .setLabel("Önceki")
           .setStyle(ButtonStyle.Secondary),
         new ButtonBuilder()
           .setCustomId("home")
-          .setLabel("Home")
+          .setLabel("Ana Sayfa")
           .setStyle(ButtonStyle.Secondary),
         new ButtonBuilder()
           .setCustomId("next")
-          .setLabel("Next")
+          .setLabel("Sonraki")
           .setStyle(ButtonStyle.Secondary),
         new ButtonBuilder()
           .setCustomId("close")
-          .setLabel("Close")
+          .setLabel("Kapat")
           .setStyle(ButtonStyle.Danger)
       );
 

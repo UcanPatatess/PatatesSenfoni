@@ -41,9 +41,9 @@ module.exports = {
 
       const greetDisplay = new TextDisplayBuilder()
         .setContent(
-          `**${client.emoji.check} Hey ${message.author}!**\n` +
-          `**${client.emoji.info} My prefix for this server is  **\`${prefix}\`\n\n` +
-          `**${client.emoji.info} Type \`${prefix}help\` for a list of commands.**`
+          `**${client.emoji.check} Merhaba ${message.author}!**\n` +
+          `**${client.emoji.info} Bu sunucudaki önekim  **\`${prefix}\`\n\n` +
+          `**${client.emoji.info} Komut listesi için \`${prefix}help\` yaz.**`
         );
 
       const container = new ContainerBuilder()
@@ -85,7 +85,7 @@ module.exports = {
     const isBlacklisted = client.db.blacklist.get(message.author.id);
     if (isBlacklisted) {
       const blacklistDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.warn} You have been blacklisted from using the bot!**`);
+        .setContent(`**${client.emoji.warn} Botu kullanman engellendi!**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(blacklistDisplay);
@@ -113,7 +113,7 @@ module.exports = {
         const timeLeft = ((expirationTime - now) / 1000).toFixed(1);
 
         const cooldownDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.warn} Please wait ${timeLeft}s before using \`${command.name}\` command again.**`);
+          .setContent(`**${client.emoji.warn} \`${command.name}\` komutunu tekrar kullanmadan önce ${timeLeft}s bekle.**`);
 
         const container = new ContainerBuilder()
           .addTextDisplayComponents(cooldownDisplay);
@@ -135,7 +135,7 @@ module.exports = {
     const perms = message.channel.permissionsFor(client.user);
     if (!perms || !perms.has(PermissionsBitField.Flags.SendMessages)) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.cross} I don't have \`SEND_MESSAGES\` permission in this channel to execute the \`${command.name}\` command.**`);
+        .setContent(`**${client.emoji.cross} Bu kanalda \`${command.name}\` komutunu çalıştırmak için \`SEND_MESSAGES\` yetkim yok.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -148,7 +148,7 @@ module.exports = {
 
     if (!perms.has(PermissionsBitField.Flags.EmbedLinks)) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.cross} I don't have \`EMBED_LINKS\` permission in this channel to execute the \`${command.name}\` command.**`);
+        .setContent(`**${client.emoji.cross} Bu kanalda \`${command.name}\` komutunu çalıştırmak için \`EMBED_LINKS\` yetkim yok.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -160,9 +160,9 @@ module.exports = {
     }
 
     if (command.args && !args.length) {
-      let reply = `You didn't provide any arguments, ${message.author}!`;
+      let reply = `${message.author}, hiçbir argüman girmedin!`;
       if (command.usage) {
-        reply += `\nUsage: \`${prefix}${command.name} ${command.usage}\``;
+        reply += `\nKullanım: \`${prefix}${command.name} ${command.usage}\``;
       }
 
       const argsDisplay = new TextDisplayBuilder()
@@ -179,7 +179,7 @@ module.exports = {
 
     if (command.botPerms && !message.guild.members.me.permissions.has(PermissionsBitField.resolve(command.botPerms || []))) {
       const permDisplay = new TextDisplayBuilder()
-        .setContent(`I need the **\`${command.botPerms.join(', ')}\`** permission(s) to execute this command.`);
+        .setContent(`Bu komutu çalıştırmak için **\`${command.botPerms.join(', ')}\`** yetkisine ihtiyacım var.`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(permDisplay);
@@ -192,7 +192,7 @@ module.exports = {
 
     if (command.userPerms && !client.config.ownerID.includes(message.author.id) && !message.member.permissions.has(PermissionsBitField.resolve(command.userPerms || []))) {
       const permDisplay = new TextDisplayBuilder()
-        .setContent(`You need the **\`${command.userPerms.join(', ')}\`** permission(s) to use this command.`);
+        .setContent(`Bu komutu kullanmak için **\`${command.userPerms.join(', ')}\`** yetkisine sahip olman gerekiyor.`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(permDisplay);
@@ -214,7 +214,7 @@ module.exports = {
     const player = client.manager.players.get(message.guild.id);
     if (command.player && !player) {
       const playerDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.warn} There is no music player active in this server.**`);
+        .setContent(`**${client.emoji.warn} Bu sunucuda aktif bir müzik oynatıcı yok.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(playerDisplay);
@@ -227,7 +227,7 @@ module.exports = {
 
     if (command.inVoiceChannel && !message.member.voice.channel) {
       const vcDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.warn} You must be in a voice channel to use this command.**`);
+        .setContent(`**${client.emoji.warn} Bu komutu kullanmak için bir ses kanalında olmalısın.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(vcDisplay);
@@ -240,7 +240,7 @@ module.exports = {
 
     if (command.sameVoiceChannel && player && message.member.voice.channel.id !== player.voiceId) {
       const sameVcDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.warn} You must be in the same voice channel as me.**`);
+        .setContent(`**${client.emoji.warn} Benimle aynı ses kanalında olmalısın.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(sameVcDisplay);
@@ -263,11 +263,11 @@ module.exports = {
           .setThumbnail(message.author.displayAvatarURL({ dynamic: true }))
           .setTimestamp()
           .setDescription(
-            `**${client.emoji.dot} Command Used In:** \`${message.guild.name} | ${message.guild.id}\`\n` +
-            `**${client.emoji.dot} Channel:** \`${message.channel.name} | ${message.channel.id}\`\n` +
-            `**${client.emoji.dot} Command:** \`${command.name}\`\n` +
-            `**${client.emoji.dot} Executor:** \`${message.author.tag} | ${message.author.id}\`\n` +
-            `**${client.emoji.dot} Content:** \`${message.content}\``
+            `**${client.emoji.dot} Komut Kullanılan Sunucu:** \`${message.guild.name} | ${message.guild.id}\`\n` +
+            `**${client.emoji.dot} Kanal:** \`${message.channel.name} | ${message.channel.id}\`\n` +
+            `**${client.emoji.dot} Komut:** \`${command.name}\`\n` +
+            `**${client.emoji.dot} Yürütücü:** \`${message.author.tag} | ${message.author.id}\`\n` +
+            `**${client.emoji.dot} İçerik:** \`${message.content}\``
           );
 
         web.send({ embeds: [commandlog] }).catch(console.error);
@@ -276,7 +276,7 @@ module.exports = {
       console.error(`Error executing command ${command.name}:`, error);
 
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.warn} An error occurred while executing this command!**`);
+        .setContent(`**${client.emoji.warn} Bu komut çalıştırılırken bir hata oluştu!**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -291,7 +291,7 @@ module.exports = {
             });
           } else {
             await message.channel.send({
-              content: `**${client.emoji.warn} An error occurred while executing this command!**`
+              content: `**${client.emoji.warn} Bu komut çalıştırılırken bir hata oluştu!**`
             });
           }
         }

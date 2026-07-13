@@ -17,7 +17,7 @@ module.exports = {
     try {
       await client.rest
         .put(`/channels/${player.voiceId}/voice-status`, {
-          body: { status: `use **${prefix}play** to add songs` },
+          body: { status: `şarkı eklemek için **${prefix}play** kullan` },
         })
         .catch(() => { });
     } catch (error) {
@@ -59,12 +59,12 @@ module.exports = {
 
         if ((!player.queue || player.queue.size === 0) && !player.playing && !player.paused) {
           const headerDisplay = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.info} Queue Ended**`);
+            .setContent(`**${client.emoji.info} Kuyruk Bitti**`);
 
           const separator = new SeparatorBuilder();
 
           const infoDisplay = new TextDisplayBuilder()
-            .setContent(`Disconnecting due to inactivity.`);
+            .setContent(`Ben çıkıyom bb :3.`);
 
           const container = new ContainerBuilder()
             .addTextDisplayComponents(headerDisplay)

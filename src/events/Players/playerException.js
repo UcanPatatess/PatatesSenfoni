@@ -43,7 +43,7 @@ module.exports = {
           if (searchResult.tracks.length > 0) {
             if (channel) {
               const fallbackDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.warn} YouTube restricted → using alternative source!**`);
+                .setContent(`**${client.emoji.warn} YouTube engellendi → alternatif kaynak kullanılıyor!**`);
 
               const container = new ContainerBuilder()
                 .addTextDisplayComponents(fallbackDisplay);
@@ -65,8 +65,8 @@ module.exports = {
         if (channel) {
           const blockedDisplay = new TextDisplayBuilder()
             .setContent(
-              `**${client.emoji.error} Couldn't play this track [YouTube blocked].**\n` +
-              `**${client.emoji.info} Skipping...**`
+              `**${client.emoji.error} Bu parça çalınamadı [YouTube engellendi].**\n` +
+              `**${client.emoji.info} Geçiliyor...**`
             );
 
           const container = new ContainerBuilder()
@@ -90,8 +90,8 @@ module.exports = {
         if (channel) {
           const errorDisplay = new TextDisplayBuilder()
             .setContent(
-              `**${client.emoji.warn} Playback error occurred.**\n` +
-              `**${client.emoji.info} Skipping track...**`
+              `**${client.emoji.warn} Oynatma hatası oluştu.**\n` +
+              `**${client.emoji.info} Parçaya geçiliyor...**`
             );
 
           const container = new ContainerBuilder()

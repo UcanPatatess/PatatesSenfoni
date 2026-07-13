@@ -20,8 +20,8 @@ module.exports = {
             if (channel) {
               const stuckDisplay = new TextDisplayBuilder()
                 .setContent(
-                  `**${client.emoji.warn} Track got stuck.**\n` +
-                  `**${client.emoji.info} Skipping to next track...**`
+                  `**${client.emoji.warn} Parça takıldı.**\n` +
+                  `**${client.emoji.info} Sonraki parçaya geçiliyor...**`
                 );
 
               const container = new ContainerBuilder()
@@ -43,8 +43,8 @@ module.exports = {
             if (channel) {
               const loadFailDisplay = new TextDisplayBuilder()
                 .setContent(
-                  `**${client.emoji.warn} Failed to load track.**\n` +
-                  `**${client.emoji.info} Skipping to next track...**`
+                  `**${client.emoji.warn} Parça yüklenemedi.**\n` +
+                  `**${client.emoji.info} Sonraki parçaya geçiliyor...**`
                 );
 
               const container = new ContainerBuilder()
@@ -65,8 +65,8 @@ module.exports = {
           if (channel) {
             const errorDisplay = new TextDisplayBuilder()
               .setContent(
-                `**${client.emoji.warn} An unexpected error occurred.**\n` +
-                `**${client.emoji.info} The player will be reset.**`
+                `**${client.emoji.warn} Beklenmeyen bir hata oluştu.**\n` +
+                `**${client.emoji.info} Oynatıcı sıfırlanacak.**`
               );
 
             const container = new ContainerBuilder()

@@ -7,7 +7,7 @@ const manager = new ClusterManager("./index.js", {
   shardsPerCluster: 1,
   mode: "process",
   token: config.token,
-  respawn: true,
+  respawn: false,
   restarts: {
     max: 5,
     interval: 1000,
@@ -18,5 +18,22 @@ const manager = new ClusterManager("./index.js", {
 manager.on("clusterCreate", (cluster) => {
   console.log(`[ShardManager] Launched cluster ${cluster.id}`);
 });
+
+async function shutdown() {
+  console.log("[ShardManager] Shutting down...");
+
+  manager.clusters.forEach((cluster) => {
+    try {
+      cluster.kill();
+    } catch (err) {
+      console.error(err);
+    }
+  });
+
+  process.exit(0);
+}
+
+process.on("SIGTERM", shutdown);
+process.on("SIGINT", shutdown);
 
 manager.spawn({ timeout: -1 });
