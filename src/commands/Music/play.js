@@ -507,8 +507,8 @@ module.exports = {
 
             const finalInfoDisplay = new TextDisplayBuilder()
               .setContent(
-                `[**${truncateTitle(track.title, 25)}**](${track.uri}) by \` ${cleanAuthorName(track.author)} \`\n` +
-                `-# Position \` #${position} \` • Duration \` ${convertTime(track.length)} \` • By \` ${interaction.user.username} \``
+                `> [**${truncateTitle(track.track.title, 25)}**](${track.track.uri}) • \` ${cleanAuthorName(track.track.author)} \`\n` +
+                `> Sıra \` #${track.position} \` • Süre \` ${convertTime(track.track.length)} \` • Ekleyen \` ${message.author.username} \``
               );
 
             const finalSection = new SectionBuilder()
@@ -897,7 +897,7 @@ module.exports = {
 
       if (searchResult.type === "PLAYLIST") {
         const successDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.check} Queued \`${addedTracks.length}\` tracks from \`${searchResult.playlistName}\`**`);
+          .setContent(`**${client.emoji.check} \`${searchResult.playlistName}\` çalma listesinden \`${addedTracks.length}\` parça kuyruğa eklendi.**`);
 
         const container = new ContainerBuilder()
           .addTextDisplayComponents(successDisplay);
@@ -958,8 +958,8 @@ module.exports = {
 
         const infoDisplay = new TextDisplayBuilder()
           .setContent(
-            `> [**${truncateTitle(track.track.title, 25)}**](${track.track.uri}) by \` ${cleanAuthorName(track.track.author)} \`\n` +
-            `> Position \` #${track.position} \` • Duration \` ${convertTime(track.track.length)} \` • By \` ${message.author.username} \``
+            `> [**${truncateTitle(track.track.title, 25)}**](${track.track.uri}) • \` ${cleanAuthorName(track.track.author)} \`\n` +
+            `> Sıra \` #${track.position} \` • Süre \` ${convertTime(track.track.length)} \` • Ekleyen \` ${message.author.username} \``
           );
 
         const section = new SectionBuilder()
