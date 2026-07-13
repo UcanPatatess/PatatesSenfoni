@@ -4,17 +4,17 @@
   "ownerID": [
     "YOUR_USER_ID"
   ],
-  "SpotifyID": "85aab1d51a174aad9eed6d7989f530e6",
-  "SpotifySecret": "b2ad05aa725e434c88776a1be8eab6c",
-  "LastFmKey": "892ec4bdf3b1ea3aa74353988aaa4ee1",
-  "LastFmSecret": "ac670032b9e8f4f96734e8f413b9488c",
+  "SpotifyID": "",
+  "SpotifySecret": "",
+  "LastFmKey": "",
+  "LastFmSecret": "",
   "color": "#00D4FF",
   "logs": "",
   "node_source": "spsearch",
   "links": {
-    "support": "https://discord.gg/aerox",
-    "invite": "https://discord.gg/aerox",
-    "guild": "https://discord.gg/aerox"
+    "support": "",
+    "invite": "",
+    "guild": ""
   },
   "Webhooks": {
     "black": "",
@@ -26,9 +26,9 @@
   },
   "nodes": [
     {
-      "name": "Groove",
-      "url": "lavalinkv4.serenetia.com:443",
-      "auth": "https://seretia.link/discord",
+      "name": "",
+      "url": "",
+      "auth": "",
       "secure": true
     }
   ],
