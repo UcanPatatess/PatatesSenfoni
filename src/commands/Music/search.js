@@ -17,14 +17,14 @@ module.exports = {
     category: 'Music',
     aliases: ['find'],
     cooldown: 5,
-    description: 'Search for songs and artists and add them to queue',
+    description: 'Şarkıları ve sanatçıları ara ve kuyruğa ekle',
     inVoiceChannel: true,
     sameVoiceChannel: true,
 
     slashOptions: [
         {
             name: 'song',
-            description: 'The song you want to search for',
+            description: 'Aramak istediğiniz şarkı',
             type: 3,
             required: true
         }
@@ -39,8 +39,8 @@ module.exports = {
         if (!args.length) {
             const usageDisplay = new TextDisplayBuilder()
                 .setContent(
-                    `**${client.emoji.dot} Usage** \`:\` \`${prefix}search <song name>\`\n` +
-                    `**${client.emoji.dot} Example** \`:\` \`${prefix}search imagine dragons believer\``
+                    `**${client.emoji.dot} Kullanım** \`:\` \`${prefix}search <şarkı adı>\`\n` +
+                    `**${client.emoji.dot} Örnek** \`:\` \`${prefix}search imagine dragons believer\``
                 );
 
             const container = new ContainerBuilder()
@@ -88,7 +88,7 @@ module.exports = {
 
         const node = [...client.manager.shoukaku.nodes.values()][0];
         if (!node) {
-            const errorDisplay = new TextDisplayBuilder().setContent(`**${client.emoji.cross} No music node available**`);
+            const errorDisplay = new TextDisplayBuilder().setContent(`**${client.emoji.cross} Müzik düğümü şu anda kullanılamıyor**`);
             const container = new ContainerBuilder().addTextDisplayComponents(errorDisplay);
             const options = { components: [container], flags: MessageFlags.IsComponentsV2 };
             return isSlash ? context.editReply(options) : context.reply(options);
@@ -127,7 +127,7 @@ module.exports = {
         const multiple = 5;
 
         if (songs.length === 0) {
-            const noResultsDisplay = new TextDisplayBuilder().setContent(`**${client.emoji.cross} No results found for \`${query}\`**`);
+            const noResultsDisplay = new TextDisplayBuilder().setContent(`**${client.emoji.cross} "${query}" için sonuç bulunamadı**`);
             const noResultsContainer = new ContainerBuilder().addTextDisplayComponents(noResultsDisplay);
             const options = { components: [noResultsContainer], flags: MessageFlags.IsComponentsV2 };
             return isSlash ? context.editReply(options) : context.reply(options);
@@ -141,15 +141,15 @@ module.exports = {
                 const headerRow = new ActionRowBuilder().addComponents(
                     new ButtonBuilder()
                         .setCustomId('mode_songs')
-                        .setLabel('Songs')
+                        .setLabel('Şarkılar')
                         .setStyle(mode === 'songs' ? ButtonStyle.Primary : ButtonStyle.Secondary),
                     new ButtonBuilder()
                         .setCustomId('mode_artists')
-                        .setLabel('Artists')
+                        .setLabel('Sanatçılar')
                         .setStyle(mode === 'artists' ? ButtonStyle.Primary : ButtonStyle.Secondary),
                     new ButtonBuilder()
                         .setCustomId('delete_search')
-                        .setLabel("Close")
+                        .setLabel("Kapat")
                         .setStyle(ButtonStyle.Secondary)
                 );
                 container.addActionRowComponents(headerRow);
@@ -182,7 +182,7 @@ module.exports = {
 
                 container.addSeparatorComponents(new SeparatorBuilder());
                 container.addTextDisplayComponents(new TextDisplayBuilder().setContent(
-                    `-# Page ${p + 1}/${totalPages} • ${songs.length} results • Initiated By ${author.displayName}`
+                    `-# Sayfa ${p + 1}/${totalPages} • ${songs.length} sonuç • Başlatan ${author.displayName}`
                 ));
             } else {
                 const currentArtists = artists.slice(start, start + multiple);
@@ -206,7 +206,7 @@ module.exports = {
 
                 container.addSeparatorComponents(new SeparatorBuilder());
                 container.addTextDisplayComponents(new TextDisplayBuilder().setContent(
-                    `-# Page ${p + 1}/${totalPages} • ${artists.length} results • Initiated By ${author.displayName}`
+                    `-# Sayfa ${p + 1}/${totalPages} • ${artists.length} sonuç • Başlatan ${author.displayName}`
                 ));
             }
 
@@ -220,17 +220,17 @@ module.exports = {
             const row = new ActionRowBuilder().addComponents(
                 new ButtonBuilder()
                     .setCustomId('prev')
-                    .setLabel('Previous')
+                    .setLabel('Önceki')
                     .setStyle(ButtonStyle.Secondary)
                     .setDisabled(p === 0),
                 new ButtonBuilder()
                     .setCustomId('next')
-                    .setLabel('Next')
+                    .setLabel('Sonraki')
                     .setStyle(ButtonStyle.Secondary)
                     .setDisabled(p === totalPages - 1 || totalPages === 0),
                 new ButtonBuilder()
                     .setCustomId('last')
-                    .setLabel('Last')
+                    .setLabel('Son')
                     .setStyle(ButtonStyle.Secondary)
                     .setDisabled(p === totalPages - 1 || totalPages === 0)
             );
@@ -239,7 +239,7 @@ module.exports = {
                 row.addComponents(
                     new ButtonBuilder()
                         .setCustomId('queue_all')
-                        .setLabel('Queue All')
+                        .setLabel('Hepsini Kuyruğa Ekle')
                         .setStyle(ButtonStyle.Secondary)
                         .setDisabled(songs.length === 0)
                 );
@@ -319,7 +319,7 @@ module.exports = {
                 if (!player.playing && !player.paused) await player.play();
 
                 const successDisplay = new TextDisplayBuilder()
-                    .setContent(`**${client.emoji.check} Added [${track.title}](${track.uri}) to queue.**`);
+                    .setContent(`**${client.emoji.check} [${track.title}](${track.uri}) kuyruğa eklendi.**`);
                 const container = new ContainerBuilder().addTextDisplayComponents(successDisplay);
 
                 return i.channel.send({
@@ -332,7 +332,7 @@ module.exports = {
                 if (!player.playing && !player.paused) await player.play();
 
                 const successDisplay = new TextDisplayBuilder()
-                    .setContent(`**${client.emoji.check} Added all ${songs.length} tracks to queue.**`);
+                    .setContent(`**${client.emoji.check} Tüm ${songs.length} şarkı kuyruğa eklendi.**`);
                 const container = new ContainerBuilder().addTextDisplayComponents(successDisplay);
 
                 return i.channel.send({
@@ -346,13 +346,13 @@ module.exports = {
                     const artist = artists[index];
 
                     if (!artist) {
-                        return i.editReply({ content: `**${client.emoji.cross} Artist data not found. Please try searching again.**` });
+                        return i.editReply({ content: `**${client.emoji.cross} Sanatçı verisi bulunamadı. Lütfen tekrar arayın.**` });
                     }
 
                     const artistTracks = await loadArtistTracks(artist.author || artist.title);
 
                     if (!artistTracks || artistTracks.length === 0) {
-                        return i.editReply({ content: `**${client.emoji.cross} No tracks found for this artist.**` });
+                        return i.editReply({ content: `**${client.emoji.cross} Bu sanatçı için şarkı bulunamadı.**` });
                     }
 
                     let artistPage = 0;
@@ -383,10 +383,10 @@ module.exports = {
                     const generateArtistButtons = (ap) => {
                         const totalPages = Math.ceil(artistTracks.length / multiple);
                         return new ActionRowBuilder().addComponents(
-                            new ButtonBuilder().setCustomId('aprev').setLabel('Previous').setStyle(ButtonStyle.Secondary).setDisabled(ap === 0),
-                            new ButtonBuilder().setCustomId('anext').setLabel('Next').setStyle(ButtonStyle.Secondary).setDisabled(ap === totalPages - 1),
-                            new ButtonBuilder().setCustomId('alast').setLabel('Last').setStyle(ButtonStyle.Secondary).setDisabled(ap === totalPages - 1),
-                            new ButtonBuilder().setCustomId('aall').setLabel('Queue All').setStyle(ButtonStyle.Secondary)
+                            new ButtonBuilder().setCustomId('aprev').setLabel('Önceki').setStyle(ButtonStyle.Secondary).setDisabled(ap === 0),
+                            new ButtonBuilder().setCustomId('anext').setLabel('Sonraki').setStyle(ButtonStyle.Secondary).setDisabled(ap === totalPages - 1),
+                            new ButtonBuilder().setCustomId('alast').setLabel('Son').setStyle(ButtonStyle.Secondary).setDisabled(ap === totalPages - 1),
+                            new ButtonBuilder().setCustomId('aall').setLabel('Hepsini Kuyruğa Ekle').setStyle(ButtonStyle.Secondary)
                         );
                     };
 
@@ -411,7 +411,7 @@ module.exports = {
                             if (!player.playing && !player.paused) await player.play();
 
                             const successDisplay = new TextDisplayBuilder()
-                                .setContent(`**${client.emoji.check} Added [${track.title}](${track.uri}) to queue.**`);
+                                .setContent(`**${client.emoji.check} [${track.title}](${track.uri}) kuyruğa eklendi.**`);
                             const container = new ContainerBuilder().addTextDisplayComponents(successDisplay);
 
                             return ai.channel.send({
@@ -424,7 +424,7 @@ module.exports = {
                             if (!player.playing && !player.paused) await player.play();
 
                             const successDisplay = new TextDisplayBuilder()
-                                .setContent(`**${client.emoji.check} Added all ${artistTracks.length} tracks to queue.**`);
+                                .setContent(`**${client.emoji.check} Tüm ${artistTracks.length} şarkı kuyruğa eklendi.**`);
                             const container = new ContainerBuilder().addTextDisplayComponents(successDisplay);
 
                             return ai.channel.send({
@@ -436,7 +436,7 @@ module.exports = {
                     });
                 } catch (error) {
                     console.error('Error in artist view:', error);
-                    return i.editReply({ content: `**${client.emoji.cross} Something went wrong while loading artist tracks.**` }).catch(() => { });
+                    return i.editReply({ content: `**${client.emoji.cross} Sanatçı şarkıları yüklenirken bir hata oluştu.**` }).catch(() => { });
                 }
             }
         });

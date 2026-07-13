@@ -30,7 +30,7 @@ function formatDuration(ms) {
 module.exports = {
   name: "unlike",
   category: "Favourite",
-  description: "Remove songs from your favorites",
+  description: "Favorilerinden şarkıları kaldır",
   args: false,
   usage: "",
   aliases: ["delfav", "removefav", "unliked", "deleteliked"],
@@ -81,7 +81,7 @@ module.exports = {
 
       if (!favorites || !favorites.length) {
         const infoDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.info} You don't have any favorite songs!**`);
+          .setContent(`**${client.emoji.info} Favorilerinde kayıtlı şarkı yok!**`);
 
         const container = new ContainerBuilder()
           .addTextDisplayComponents(infoDisplay);
@@ -102,14 +102,14 @@ module.exports = {
         const pageTracks = currentFavorites.slice(start, end);
 
         const headerDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.info} Remove Favorites**`);
+          .setContent(`**${client.emoji.info} Favorilerini Yönet**`);
 
         const separator1 = new SeparatorBuilder();
 
         const infoDisplay = new TextDisplayBuilder()
           .setContent(
-            `**Favorites:** \`${currentFavorites.length} tracks\`\n` +
-            `**Page:** \`${page + 1} of ${Math.ceil(currentFavorites.length / songsPerPage)}\``
+            `**Favoriler:** \`${currentFavorites.length} şarkı\`\n` +
+            `**Sayfa:** \`${page + 1} / ${Math.ceil(currentFavorites.length / songsPerPage)}\``
           );
 
         const separator2 = new SeparatorBuilder();
@@ -140,7 +140,7 @@ module.exports = {
           const position = start + i;
           return {
             label: `${position}. ${track.title.substring(0, 90)}`,
-            description: `Duration: ${formatDuration(track.duration || track.length)}`,
+            description: `Süre: ${formatDuration(track.duration || track.length)}`,
             value: `unlike_${position}`
           };
         });
@@ -148,7 +148,7 @@ module.exports = {
         return new ActionRowBuilder().addComponents(
           new StringSelectMenuBuilder()
             .setCustomId('select_favorite')
-            .setPlaceholder('Select favorites to remove')
+            .setPlaceholder('Kaldırmak istediğin şarkıları seç')
             .setMinValues(1)
             .setMaxValues(Math.min(options.length, 10))
             .addOptions(options)
@@ -160,21 +160,21 @@ module.exports = {
         return new ActionRowBuilder().addComponents(
           new ButtonBuilder()
             .setCustomId('clear_favorites')
-            .setLabel('Clear All')
+            .setLabel('Tümünü Temizle')
             .setStyle(ButtonStyle.Danger),
           new ButtonBuilder()
             .setCustomId('previous')
-            .setLabel('Previous')
+            .setLabel('Önceki')
             .setStyle(ButtonStyle.Secondary)
             .setDisabled(currentTotalPages <= 1),
           new ButtonBuilder()
             .setCustomId('next')
-            .setLabel('Next')
+            .setLabel('Sonraki')
             .setStyle(ButtonStyle.Secondary)
             .setDisabled(currentTotalPages <= 1),
           new ButtonBuilder()
             .setCustomId('close_session')
-            .setLabel('Close')
+            .setLabel('Kapat')
             .setStyle(ButtonStyle.Secondary)
         );
       };
@@ -195,7 +195,7 @@ module.exports = {
           if (i.user.id === message.author.id) return true;
 
           const errorDisplay = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.cross} Only ${message.author.tag} can use this!**`);
+            .setContent(`**${client.emoji.cross} Sadece ${message.author.tag} bu işlemi gerçekleştirebilir!**`);
 
           const errorContainer = new ContainerBuilder()
             .addTextDisplayComponents(errorDisplay);
@@ -214,7 +214,7 @@ module.exports = {
 
         if (!currentFavs || (interaction.customId !== 'clear_favorites' && currentFavs.length === 0)) {
           const errorDisplay = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.info} You don't have any favorite songs left!**`);
+            .setContent(`**${client.emoji.info} Favorilerinde kayıtlı şarkı yok!**`);
           const errorContainer = new ContainerBuilder().addTextDisplayComponents(errorDisplay);
           await interaction.reply({ components: [errorContainer], flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2 });
           collector.stop();
@@ -245,13 +245,13 @@ module.exports = {
 
           if (currentFavs.length === 0) {
             const emptyDisplay = new TextDisplayBuilder()
-              .setContent(`**${client.emoji.check} Removed ${removedTracks.length} favorite(s). Your favorites list is now empty!**`);
+              .setContent(`**${client.emoji.check} ${removedTracks.length} şarkı favorilerinden kaldırıldı. Favori listen artık boş!**`);
             const emptyContainer = new ContainerBuilder().addTextDisplayComponents(emptyDisplay);
             await msg.edit({ components: [emptyContainer], flags: MessageFlags.IsComponentsV2 });
             collector.stop();
           } else {
             const successDisplay = new TextDisplayBuilder()
-              .setContent(`**${client.emoji.check} Removed ${removedTracks.length} favorite(s)**`);
+              .setContent(`**${client.emoji.check} ${removedTracks.length} şarkı favorilerinden kaldırıldı.**`);
             const successContainer = new ContainerBuilder().addTextDisplayComponents(successDisplay);
 
             await msg.edit({
@@ -297,7 +297,7 @@ module.exports = {
           client.db.liked.set(userId, []);
 
           const successDisplay = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.check} Cleared all ${favCount} favorites**`);
+            .setContent(`**${client.emoji.check} Tüm ${favCount} favorilerin temizlendi.**`);
 
           const successContainer = new ContainerBuilder()
             .addTextDisplayComponents(successDisplay);
@@ -318,7 +318,7 @@ module.exports = {
       collector.on('end', async (collected, reason) => {
         if (reason === 'idle' || reason === 'time') {
           const timeoutDisplay = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.info} Session timed out. Use the command again if needed.**`);
+            .setContent(`**${client.emoji.info} Oturum süresi doldu. Komutu tekrar kullanın.**`);
           const timeoutContainer = new ContainerBuilder().addTextDisplayComponents(timeoutDisplay);
 
           await msg.edit({
@@ -332,7 +332,7 @@ module.exports = {
       console.error(err);
 
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.cross} An error occurred while removing from favorites.**`);
+        .setContent(`**${client.emoji.cross} Favorilerden kaldırma sırasında bir hata oluştu.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);

@@ -13,7 +13,7 @@ module.exports = {
   aliases: ["ap", "auto"],
   category: "Music",
   cooldown: 3,
-  description: "Toggle autoplay mode",
+  description: "Otomatik oynatma modunu açar veya kapatır.",
   botPrams: ["EmbedLinks"],
   player: true,
   inVoiceChannel: true,
@@ -61,7 +61,7 @@ module.exports = {
 
     const statusDisplay = new TextDisplayBuilder()
       .setContent(
-        `**${client.emoji.check} Autoplay has been \`${newStatus ? "Enabled" : "Disabled"}\`.**`
+        `**${client.emoji.check} Otomatik oynatma ${newStatus ? "açıldı" : "kapatıldı"}.**`
       );
 
     const container = new ContainerBuilder()

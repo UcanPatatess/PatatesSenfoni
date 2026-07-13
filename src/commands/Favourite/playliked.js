@@ -7,7 +7,7 @@ const {
 module.exports = {
   name: "playliked",
   category: "Favourite",
-  description: "Play your favorite songs",
+  description: "Favori şarkılarını çalar",
   args: false,
   usage: "",
   aliases: ["pfav", "playfav", "playfavorites"],
@@ -56,7 +56,7 @@ module.exports = {
     try {
       if (!message.member.voice.channel) {
         const errorDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.cross} You must be in a voice channel!**`);
+          .setContent(`**${client.emoji.cross} Ses kanalında olmalısın!**`);
 
         const container = new ContainerBuilder()
           .addTextDisplayComponents(errorDisplay);
@@ -70,7 +70,7 @@ module.exports = {
       const songs = client.db.liked.get(userId);
       if (!songs || !songs.length) {
         const infoDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.info} You don't have any favorite songs to play!**`);
+          .setContent(`**${client.emoji.info} Favorilerinde kayıtlı şarkı yok!**`);
 
         const container = new ContainerBuilder()
           .addTextDisplayComponents(infoDisplay);
@@ -85,7 +85,7 @@ module.exports = {
 
       if (!hasAvailableNodes(client.manager)) {
         const errorDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.cross} The music server is currently unavailable. Please try again later.**`);
+          .setContent(`**${client.emoji.cross} Müzik sunucusu şu anda kullanılamıyor. Lütfen daha sonra tekrar deneyin.**`);
 
         const container = new ContainerBuilder()
           .addTextDisplayComponents(errorDisplay);
@@ -112,7 +112,7 @@ module.exports = {
           console.error('Failed to create player:', createError);
 
           const errorDisplay = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.cross} Failed to connect to the music server. Please try again later.**`);
+            .setContent(`**${client.emoji.cross} Müzik sunucusuna bağlanma başarısız oldu. Lütfen daha sonra tekrar deneyin.**`);
 
           const container = new ContainerBuilder()
             .addTextDisplayComponents(errorDisplay);
@@ -125,7 +125,7 @@ module.exports = {
       } else {
         if (player.voiceId !== message.member.voice.channel.id) {
           const errorDisplay = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.cross} You must be in the same voice channel as the bot!**`);
+            .setContent(`**${client.emoji.cross} Botla aynı ses kanalında olmalısın!**`);
 
           const container = new ContainerBuilder()
             .addTextDisplayComponents(errorDisplay);
@@ -142,7 +142,7 @@ module.exports = {
       }
 
       const loadingDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.load} Loading ${songs.length} songs from your favorites...**`);
+        .setContent(`**${client.emoji.load} Favorilerinden ${songs.length} şarkı yükleniyor...**`);
 
       const loadingContainer = new ContainerBuilder()
         .addTextDisplayComponents(loadingDisplay);
@@ -188,7 +188,7 @@ module.exports = {
 
         if (i + batchSize < songs.length) {
           const progressDisplay = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.load} Loaded \`${Math.min(i + batchSize, songs.length)}\` songs out of \`${songs.length}\`.**`);
+            .setContent(`**${client.emoji.load} \`${songs.length}\` şarkının \`${Math.min(i + batchSize, songs.length)}\` tanesi yüklendi.**`);
 
           const progressContainer = new ContainerBuilder()
             .addTextDisplayComponents(progressDisplay);
@@ -204,14 +204,14 @@ module.exports = {
         await player.play();
       }
 
-      let resultText = `**${client.emoji.info} Loaded ${loadedCount} songs from your favorites!**\n`;
+      let resultText = `**${client.emoji.info} Favorilerinden ${loadedCount} şarkı yüklendi!**\n`;
       if (errorCount > 0) {
-        resultText += `**${client.emoji.warn} Failed to load ${errorCount} songs**\n`;
+        resultText += `**${client.emoji.warn} ${errorCount} şarkının yüklenmesi başarısız oldu**\n`;
       }
       if (player.playing && player.queue.length > loadedCount) {
-        resultText += `**${client.emoji.info} Added to queue - will play after current tracks**`;
+        resultText += `**${client.emoji.info} Kuyruğa eklendi. Mevcut şarkılar tamamlandıktan sonra oynatılacak.**`;
       } else {
-        resultText += `**${client.emoji.check} Now playing your favorites!**`;
+        resultText += `**${client.emoji.check} Favorilerin şimdi oynatılıyor!**`;
       }
 
       const resultDisplay = new TextDisplayBuilder()
@@ -229,7 +229,7 @@ module.exports = {
       console.error(err);
 
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.cross} An error occurred while playing your favorites.**`);
+        .setContent(`**${client.emoji.cross} Favorilerin oynatılırken bir hata oluştu.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);

@@ -14,7 +14,7 @@ module.exports = {
   name: "queue",
   aliases: ["q"],
   category: "Music",
-  description: "Show the server queue",
+  description: "Sunucu kuyruğunu gösterir",
   args: false,
   usage: "",
   userPerms: [],
@@ -61,7 +61,7 @@ module.exports = {
 
     if (!player.queue.current) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.cross} Nothing is playing right now.**`);
+        .setContent(`**${client.emoji.cross} Şu anda hiçbir şey çalmıyor.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -92,7 +92,7 @@ module.exports = {
       const queueList = queue.slice(start, start + multiple);
 
       const headerDisplay = new TextDisplayBuilder()
-        .setContent(`### ${client.emoji.info} Music Queue`);
+        .setContent(`### ${client.emoji.info} Müzik Kuyruğu`);
 
       const separator1 = new SeparatorBuilder();
 
@@ -125,19 +125,19 @@ module.exports = {
     const row = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
         .setCustomId("home")
-        .setLabel("Home")
+        .setLabel("Ana Sayfa")
         .setStyle(ButtonStyle.Secondary),
       new ButtonBuilder()
         .setCustomId("previous")
-        .setLabel("Previous")
+        .setLabel("Önceki")
         .setStyle(ButtonStyle.Secondary),
       new ButtonBuilder()
         .setCustomId("next")
-        .setLabel("Next")
+        .setLabel("Sonraki")
         .setStyle(ButtonStyle.Secondary),
       new ButtonBuilder()
         .setCustomId("close")
-        .setLabel("Close")
+        .setLabel("Kapat")
         .setStyle(ButtonStyle.Secondary)
     );
 
@@ -157,7 +157,7 @@ module.exports = {
           if (b.user.id === message.author.id) return true;
 
           const errorDisplay = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.cross} Only ${message.author.tag} can use these buttons!**`);
+            .setContent(`**${client.emoji.cross} Bu butonları yalnızca ${message.author.tag} kullanabilir!**`);
 
           const errorContainer = new ContainerBuilder()
             .addTextDisplayComponents(errorDisplay);

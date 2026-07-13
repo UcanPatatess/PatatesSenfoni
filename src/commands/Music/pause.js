@@ -8,7 +8,7 @@ module.exports = {
   name: "pause",
   category: "Music",
   cooldown: 3,
-  description: "Pause the currently playing music",
+  description: "Şu anda çalan müziği duraklatır",
   args: false,
   usage: "",
   userPrams: [],
@@ -57,7 +57,7 @@ module.exports = {
 
     if (!player.queue.current) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.cross} Play a song first!**`);
+        .setContent(`**${client.emoji.cross} Önce bir şarkı çalmalısın!**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -70,7 +70,7 @@ module.exports = {
 
     if (player.shoukaku.paused) {
       const infoDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.info} The player is already paused.**`);
+        .setContent(`**${client.emoji.info} Oynatıcı zaten duraklatılmış.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(infoDisplay);
@@ -89,7 +89,7 @@ module.exports = {
     const song = player.queue.current;
 
     const successDisplay = new TextDisplayBuilder()
-      .setContent(`**${client.emoji.check} Paused [${song.title}](${song.uri})**`);
+      .setContent(`**${client.emoji.check} Duraklatıldı [${song.title}](${song.uri})**`);
 
     const container = new ContainerBuilder()
       .addTextDisplayComponents(successDisplay);

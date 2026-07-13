@@ -11,7 +11,7 @@ module.exports = {
   name: "nowplaying",
   aliases: ["np"],
   category: "Music",
-  description: "Show the current playing song",
+  description: "Şu anda çalan şarkıyı gösterir",
   args: false,
   usage: "",
   userPerms: [],
@@ -58,7 +58,7 @@ module.exports = {
 
     if (!player.queue.current) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.cross} Nothing is playing right now.**`);
+        .setContent(`**${client.emoji.cross} Şu anda hiçbir şey çalmıyor.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -89,15 +89,15 @@ module.exports = {
 
     const createContainer = (prog) => {
       const headerDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.check} Now playing - ${track.title}**`);
+        .setContent(`**${client.emoji.check} Çalan Şarkı - ${track.title}**`);
 
       const separator1 = new SeparatorBuilder();
 
       const infoDisplay = new TextDisplayBuilder()
         .setContent(
-          `> - **Author:** [${cleanAuthorName(track.author)}](${track.uri})\n` +
-          `> - **Duration:** \`${durationFormatted}\`\n` +
-          `> - **Requester:** [${track.requester.username}](https://discord.com/users/${track.requester.id})\n`+
+          `> - **Şarkıcı:** [${cleanAuthorName(track.author)}](${track.uri})\n` +
+          `> - **Süre:** \`${durationFormatted}\`\n` +
+          `> - **Ekleyen:** [${track.requester.username}](https://discord.com/users/${track.requester.id})\n`+
           `> - \`${prog.position} ${prog.bar} ${durationFormatted}\``
         );
 

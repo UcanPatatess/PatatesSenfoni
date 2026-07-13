@@ -13,7 +13,7 @@ module.exports = {
     aliases: ["loop"],
     category: "Music",
     cooldown: 3,
-    description: "Toggle music loop",
+    description: "Döngü modunu açar veya kapatır",
     botPrams: ["EmbedLinks"],
     player: true,
     inVoiceChannel: true,
@@ -75,7 +75,7 @@ module.exports = {
 
         if (!player.queue.current) {
             const errorDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.cross} Play a song first.**`);
+                .setContent(`**${client.emoji.cross} Önce bir şarkı çalmalısın.**`);
 
             const container = new ContainerBuilder()
                 .addTextDisplayComponents(errorDisplay);
@@ -90,20 +90,20 @@ module.exports = {
 
         const createStep1Container = () => {
             const headerDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.info} Loop Settings**`);
+                .setContent(`**${client.emoji.info} Döngü Ayarları**`);
             const separator = new SeparatorBuilder();
             const statusDisplay = new TextDisplayBuilder()
-                .setContent(`**Current Mode** \`:\` \`${currentLoop === "none" ? "Disabled" : currentLoop === "track" ? "Track Loop" : "Queue Loop"}\``);
+                .setContent(`**Mevcut Mod** \`:\` \`${currentLoop === "none" ? "Kapalı" : currentLoop === "track" ? "Şarkı Döngüsü" : "Kuyruk Döngüsü"}\``);
 
             const row = new ActionRowBuilder().addComponents(
                 new ButtonBuilder()
                     .setCustomId('loop_enable_prompt')
-                    .setLabel('Enable')
+                    .setLabel('Aç')
                     .setStyle(ButtonStyle.Success)
                     .setDisabled(currentLoop !== 'none'),
                 new ButtonBuilder()
                     .setCustomId('loop_off')
-                    .setLabel('Disable')
+                    .setLabel('Kapat')
                     .setStyle(ButtonStyle.Danger)
                     .setDisabled(currentLoop === 'none')
             );
@@ -118,23 +118,23 @@ module.exports = {
 
         const createStep2Container = () => {
             const headerDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.info} Select Loop Mode**`);
+                .setContent(`**${client.emoji.info} Döngü Modu Seçin**`);
             const separator = new SeparatorBuilder();
             const statusDisplay = new TextDisplayBuilder()
-                .setContent(`**Please choose whether you want to loop the current track or the entire queue.**`);
+                .setContent(`**Lütfen mevcut şarkıyı mı yoksa tüm kuyruğu mu döngüye almak istediğinizi seçin.**`);
 
             const row = new ActionRowBuilder().addComponents(
                 new ButtonBuilder()
                     .setCustomId('loop_track')
-                    .setLabel('Track')
+                    .setLabel('Şarkı')
                     .setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder()
                     .setCustomId('loop_queue')
-                    .setLabel('Queue')
+                    .setLabel('Kuyruk')
                     .setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder()
                     .setCustomId('loop_back')
-                    .setLabel('Back')
+                    .setLabel('Geri')
                     .setStyle(ButtonStyle.Secondary)
             );
 
@@ -148,10 +148,10 @@ module.exports = {
 
         const createFinalContainer = (mode) => {
             const headerDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.check} Loop Updated**`);
+                .setContent(`**${client.emoji.check} Döngü Güncellendi**`);
             const separator = new SeparatorBuilder();
             const statusDisplay = new TextDisplayBuilder()
-                .setContent(`**Loop mode has been set to** \`:\` \`${mode === "none" ? "Disabled" : mode === "track" ? "Track Loop" : "Queue Loop"}\``);
+                .setContent(`**Döngü modu şu şekilde ayarlandı** \`:\` \`${mode === "none" ? "Kapalı" : mode === "track" ? "Şarkı Döngüsü" : "Kuyruk Döngüsü"}\``);
 
             return new ContainerBuilder()
                 .addTextDisplayComponents(headerDisplay)
@@ -195,7 +195,7 @@ module.exports = {
                 filter: (i) => {
                     if (i.user.id === message.author.id) return true;
                     const errorDisplay = new TextDisplayBuilder()
-                        .setContent(`**${client.emoji.cross} Only ${message.author.tag} can use these buttons.**`);
+                        .setContent(`**${client.emoji.cross} Sadece ${message.author.tag} bu düğmeleri kullanabilir.**`);
                     const errorContainer = new ContainerBuilder().addTextDisplayComponents(errorDisplay);
                     i.reply({ components: [errorContainer], flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2 });
                     return false;

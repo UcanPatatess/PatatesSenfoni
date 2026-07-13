@@ -9,7 +9,7 @@ module.exports = {
   aliases: ["s"],
   category: "Music",
   cooldown: 3,
-  description: "Skip the current song instantly.",
+  description: "Şu anki şarkıyı hemen atla.",
   botPrams: ["EMBED_LINKS"],
   player: true,
   inVoiceChannel: true,
@@ -53,7 +53,7 @@ module.exports = {
 
     if (!player.queue.current) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.warn} Play a song first.**`);
+        .setContent(`**${client.emoji.warn} Önce bir şarkı çal.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -69,7 +69,7 @@ module.exports = {
 
     const successDisplay = new TextDisplayBuilder()
       .setContent(
-        `**${client.emoji.check} Skipped [${currentTrack.title}](${currentTrack.uri})**`
+        `**${client.emoji.check} [${currentTrack.title}](${currentTrack.uri}) atlandı.**`
       );
 
     const container = new ContainerBuilder()

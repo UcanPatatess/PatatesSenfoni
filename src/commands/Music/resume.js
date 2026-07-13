@@ -10,7 +10,7 @@ module.exports = {
   aliases: ["r"],
   category: "Music",
   cooldown: 3,
-  description: "Resume currently playing music",
+  description: "Çalan müziği devam ettirir",
   args: false,
   usage: "",
   userPrams: [],
@@ -60,7 +60,7 @@ module.exports = {
 
     if (!song) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.cross} Play a song first.**`);
+        .setContent(`**${client.emoji.cross} Önce bir şarkı çalın.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -73,7 +73,7 @@ module.exports = {
 
     if (!player.shoukaku.paused) {
       const warnDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.warn} The player is already resumed.**`);
+        .setContent(`**${client.emoji.warn} Oynatıcı zaten devam ediyor.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(warnDisplay);
@@ -90,7 +90,7 @@ module.exports = {
     await updateNowPlayingButtons(client, player, false);
 
     const successDisplay = new TextDisplayBuilder()
-      .setContent(`**${client.emoji.check} Resumed [${song.title}](${song.uri})**`);
+      .setContent(`**${client.emoji.check} [${song.title}](${song.uri}) devam ettirildi**`);
 
     const container = new ContainerBuilder()
       .addTextDisplayComponents(successDisplay);

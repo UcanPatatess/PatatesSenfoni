@@ -9,7 +9,7 @@ module.exports = {
     name: "move",
     aliases: ["mv"],
     category: "Music",
-    description: "Move the bot to your current voice channel",
+    description: "Botu bulunduğun ses kanalına taşır",
     args: false,
     usage: "",
     userPrams: [],
@@ -66,7 +66,7 @@ module.exports = {
             ) {
                 const errorDisplay = new TextDisplayBuilder()
                     .setContent(
-                        `**${client.emoji.warn} I don't have enough permissions to execute this command! Please give me permission \`CONNECT\` or \`SPEAK\`.**`
+                        `**${client.emoji.warn} Bu komutu çalıştırmak için yeterli iznim yok! Lütfen bana \`CONNECT\` veya \`SPEAK\`izni ver.**`
                     );
 
                 const container = new ContainerBuilder()
@@ -91,7 +91,7 @@ module.exports = {
 
                 const successDisplay = new TextDisplayBuilder()
                     .setContent(
-                        `**${client.emoji.check} Joined <#${channel.id}> and bound to <#${message.channel.id}>**`
+                        `**${client.emoji.check} <#${channel.id}> ses kanalına katıldım ve <#${message.channel.id}> kanalına bağlandım.**`
                     );
 
                 const container = new ContainerBuilder()
@@ -105,7 +105,7 @@ module.exports = {
                 console.error(error);
 
                 const errorDisplay = new TextDisplayBuilder()
-                    .setContent(`**${client.emoji.warn} An error occurred while joining the channel.**`);
+                    .setContent(`**${client.emoji.warn} Kanala katılırken bir hata oluştu.**`);
 
                 const container = new ContainerBuilder()
                     .addTextDisplayComponents(errorDisplay);
@@ -119,7 +119,7 @@ module.exports = {
 
         if (player.voiceId === channel.id) {
             const warnDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.warn} I am already in your voice channel.**`);
+                .setContent(`**${client.emoji.warn} Zaten bulunduğun ses kanalındayım.**`);
 
             const container = new ContainerBuilder()
                 .addTextDisplayComponents(warnDisplay);
@@ -142,8 +142,8 @@ module.exports = {
             }
 
             const description = is247Updated
-                ? `**${client.emoji.check} Moved to <#${channel.id}>**\n**${client.emoji.info} Updated 247 mode to this channel**`
-                : `**${client.emoji.check} Moved to <#${channel.id}>**`;
+                ? `**${client.emoji.check} <#${channel.id}> kanalına taşındım**\n**${client.emoji.info} 247 modu bu kanala güncellendi**`
+                : `**${client.emoji.check} <#${channel.id}> kanalına taşındım**`;
 
             const successDisplay = new TextDisplayBuilder()
                 .setContent(description);
@@ -159,7 +159,7 @@ module.exports = {
             console.error(error);
 
             const errorDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.warn} An error occurred while moving.**`);
+                .setContent(`**${client.emoji.warn} Taşınırken bir hata oluştu.**`);
 
             const container = new ContainerBuilder()
                 .addTextDisplayComponents(errorDisplay);

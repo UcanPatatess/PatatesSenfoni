@@ -10,7 +10,7 @@ module.exports = {
     aliases: ["rw", "backward"],
     category: "Music",
     cooldown: 3,
-    description: "Rewind the current song by specified seconds",
+    description: "Mevcut şarkıyı belirtilen saniye kadar geri sarar",
     args: false,
     usage: "[seconds]",
     userPrams: [],
@@ -23,7 +23,7 @@ module.exports = {
     slashOptions: [
         {
             name: "seconds",
-            description: "Number of seconds to rewind (default: 10)",
+            description: "Geri sarılacak saniye sayısı (varsayılan: 10)",
             type: 4,
             required: false
         }
@@ -33,7 +33,7 @@ module.exports = {
         const player = client.manager.players.get(interaction.guild.id);
         if (!player.queue.current) {
             const errorDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.warn} Play a song first.**`);
+                .setContent(`**${client.emoji.warn} Önce bir şarkı çalın.**`);
             const container = new ContainerBuilder().addTextDisplayComponents(errorDisplay);
             return interaction.reply({ components: [container], flags: MessageFlags.IsComponentsV2 });
         }
@@ -51,12 +51,12 @@ module.exports = {
                 return `${minutes}:${secs.toString().padStart(2, '0')}`;
             };
             const successDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.check} Rewound \`${seconds}s\` to \`${formatTime(newPosition)}\`**`);
+                .setContent(`**${client.emoji.check} \`${seconds}s\` geri sarıldı, yeni konum \`${formatTime(newPosition)}\`**`);
             const container = new ContainerBuilder().addTextDisplayComponents(successDisplay);
             return interaction.reply({ components: [container], flags: MessageFlags.IsComponentsV2 });
         } catch (error) {
             console.error("Error rewinding:", error);
-            const errorDisplay = new TextDisplayBuilder().setContent(`**${client.emoji.cross} Failed to rewind the track.**`);
+            const errorDisplay = new TextDisplayBuilder().setContent(`**${client.emoji.cross} Şarkı geri sarılamadı.**`);
             const container = new ContainerBuilder().addTextDisplayComponents(errorDisplay);
             return interaction.reply({ components: [container], flags: MessageFlags.IsComponentsV2 });
         }
@@ -67,7 +67,7 @@ module.exports = {
 
         if (!player.queue.current) {
             const errorDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.warn} Play a song first.**`);
+                .setContent(`**${client.emoji.warn} Önce bir şarkı çalın.**`);
 
             const container = new ContainerBuilder()
                 .addTextDisplayComponents(errorDisplay);
@@ -86,8 +86,8 @@ module.exports = {
             if (isNaN(seconds) || seconds <= 0) {
                 const usageDisplay = new TextDisplayBuilder()
                     .setContent(
-                        `**${client.emoji.cross} Usage** \`:\` \`${prefix}rewind [seconds]\`\n` +
-                        `**${client.emoji.dot} Example** \`:\` \`${prefix}rewind 30\` - Rewind 30 seconds`
+                        `**${client.emoji.cross} Kullanım** \`:\` \`${prefix}rewind [saniye]\`\n` +
+                        `**${client.emoji.dot} Örnek** \`:\` \`${prefix}rewind 30\` - 30 saniye geri sar`
                     );
 
                 const container = new ContainerBuilder()
@@ -119,8 +119,7 @@ module.exports = {
             };
 
             const successDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.check} Rewound \`${seconds}s\` to \`${formatTime(newPosition)}\`**`);
-
+                    .setContent(`**${client.emoji.check} \`${seconds}s\` geri sarıldı, yeni konum \`${formatTime(newPosition)}\`**`);
             const container = new ContainerBuilder()
                 .addTextDisplayComponents(successDisplay);
 
@@ -137,7 +136,7 @@ module.exports = {
             console.error("Error rewinding:", error);
 
             const errorDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.cross} Failed to rewind the track.**`);
+                .setContent(`**${client.emoji.cross} Şarkı geri sarılamadı.**`);
 
             const container = new ContainerBuilder()
                 .addTextDisplayComponents(errorDisplay);

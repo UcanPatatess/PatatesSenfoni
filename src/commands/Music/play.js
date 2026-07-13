@@ -17,7 +17,7 @@ module.exports = {
   category: "Music",
   aliases: ["p"],
   cooldown: 3,
-  description: "Plays a song or playlist.",
+  description: "Şarkı veya çalma listesi oynatır.",
   inVoiceChannel: true,
   sameVoiceChannel: true,
   botPerms: ["EmbedLinks", "Connect", "Speak"],
@@ -25,7 +25,7 @@ module.exports = {
   slashOptions: [
     {
       name: "song",
-      description: "Song name or URL to play",
+      description: "Şarkı adı veya oynatmak için URL",
       type: 3,
       required: true,
       autocomplete: true
@@ -109,7 +109,7 @@ module.exports = {
 
     if (!interaction.member?.voice?.channel) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.warn} You need to be in a voice channel first.**`);
+        .setContent(`**${client.emoji.warn} Öncelikle bir ses kanalında olmanız gerekiyor.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -127,7 +127,7 @@ module.exports = {
       PermissionsBitField.Flags.Speak,
     ])) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.warn} I don't have enough permissions! Please give me \`CONNECT\` and \`SPEAK\`.**`);
+        .setContent(`**${client.emoji.warn} Yeterli iznim yok! Lütfen bana \`CONNECT\` ve \`SPEAK\` izinlerini ver.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -143,7 +143,7 @@ module.exports = {
 
       if (!hasAvailableNodes(client.manager)) {
         const errorDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.cross} The music server is currently unavailable. Please try again later.**`);
+          .setContent(`**${client.emoji.cross} Müzik sunucusu şu anda kullanılamıyor. Lütfen daha sonra tekrar deneyin.**`);
 
         const container = new ContainerBuilder()
           .addTextDisplayComponents(errorDisplay);
@@ -188,7 +188,7 @@ module.exports = {
       } else {
         if (player.voiceId !== channel.id) {
           const errorDisplay = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.warn} I'm already connected to a different voice channel.**`);
+            .setContent(`**${client.emoji.warn} Zaten farklı bir ses kanalına bağlıyım.**`);
 
           const container = new ContainerBuilder()
             .addTextDisplayComponents(errorDisplay);
@@ -233,7 +233,7 @@ module.exports = {
 
       if (!searchResult || !searchResult.tracks || !searchResult.tracks.length) {
         const errorDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.cross} No results found for "${query}"**`);
+          .setContent(`**${client.emoji.cross} "${query}" için sonuç bulunamadı**`);
 
         const container = new ContainerBuilder()
           .addTextDisplayComponents(errorDisplay);
@@ -276,7 +276,7 @@ module.exports = {
         }
 
         const successDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.check} Queued \`${searchResult.tracks.length}\` tracks from \`${searchResult.playlistName}\`**`);
+          .setContent(`**${client.emoji.check} Kuyruğa eklendi \`${searchResult.tracks.length}\` şarkılar \`${searchResult.playlistName}\`**`);
 
         const container = new ContainerBuilder()
           .addTextDisplayComponents(successDisplay);
@@ -351,12 +351,12 @@ module.exports = {
       };
 
       const titleDisplay = new TextDisplayBuilder()
-        .setContent(`### ${client.emoji.check} Track Added`);
+        .setContent(`### ${client.emoji.check} Şarkı eklendi`);
 
       const infoDisplay = new TextDisplayBuilder()
         .setContent(
-          `[**${truncateTitle(track.title, 25)}**](${track.uri}) by \` ${cleanAuthorName(track.author)} \`\n` +
-          `-# Position \` #${position} \` • Duration \` ${convertTime(track.length)} \` • By \` ${interaction.user.username} \``
+         `[**${truncateTitle(track.title, 25)}**](${track.uri}) • \` ${cleanAuthorName(track.author)} \`\n` +
+          `-# Sıra \` #${position} \` • Süre \` ${convertTime(track.length)} \` • Ekleyen \` ${interaction.user.username} \``
         );
 
       const section = new SectionBuilder()
@@ -426,7 +426,7 @@ module.exports = {
 
         collector.on('collect', async (buttonInteraction) => {
           if (!buttonInteraction.member.voice.channel || buttonInteraction.member.voice.channel.id !== player.voiceId) {
-            return buttonInteraction.reply({ content: `**${client.emoji.warn} You must be in my voice channel to use this.**`, ephemeral: true });
+            return buttonInteraction.reply({ content: `**${client.emoji.warn} Bu işlemi kullanmak için benim ses kanalımda olmalısın.**`, ephemeral: true });
           }
 
           const parts = buttonInteraction.customId.split('_');
@@ -446,7 +446,7 @@ module.exports = {
                 player.queue.splice(trackIndex, 1);
 
                 const updatedDisplay = new TextDisplayBuilder()
-                  .setContent(`**${client.emoji.check} Removed [${truncateTitle(removedTrack.title, 25)}](${removedTrack.uri}) from queue.**`);
+                  .setContent(`**${client.emoji.check} [${truncateTitle(removedTrack.title, 25)}](${removedTrack.uri}) sıradan kaldırıldı.**`);
 
                 const updatedContainer = new ContainerBuilder()
                   .addTextDisplayComponents(updatedDisplay);
@@ -460,7 +460,7 @@ module.exports = {
 
                 buttonInteraction.message.actionTaken = true;
               } else {
-                await buttonInteraction.reply({ content: `**${client.emoji.cross} This track is no longer in the queue.**`, ephemeral: true });
+                await buttonInteraction.reply({ content: `**${client.emoji.cross} Bu şarkı artık sırada değil.**`, ephemeral: true });
               }
             } catch (err) {
               console.error('Error removing track:', err);
@@ -478,7 +478,7 @@ module.exports = {
                 player.queue.unshift(trackToMove);
 
                 const updatedDisplay = new TextDisplayBuilder()
-                  .setContent(`**${client.emoji.check} Moved [${truncateTitle(trackToMove.title, 25)}](${trackToMove.uri}) to next in queue.**`);
+                  .setContent(`**${client.emoji.check} Moved [${truncateTitle(trackToMove.title, 25)}](${trackToMove.uri}) sıradaki pozisyona taşındı.**`);
 
                 const updatedContainer = new ContainerBuilder()
                   .addTextDisplayComponents(updatedDisplay);
@@ -492,7 +492,7 @@ module.exports = {
 
                 buttonInteraction.message.actionTaken = true;
               } else {
-                await buttonInteraction.reply({ content: `**${client.emoji.cross} This track is no longer in the queue.**`, ephemeral: true });
+                await buttonInteraction.reply({ content: `**${client.emoji.cross} Bu şarkı artık sırada değil.**`, ephemeral: true });
               }
             } catch (err) {
               console.error('Error moving track:', err);
@@ -503,7 +503,7 @@ module.exports = {
         collector.on('end', () => {
           if (replyMsg && !replyMsg.deleted && !replyMsg.actionTaken) {
             const finalTitleDisplay = new TextDisplayBuilder()
-              .setContent(`### ${client.emoji.check} Track Added`);
+              .setContent(`### ${client.emoji.check} Şarkı eklendi`);
 
             const finalInfoDisplay = new TextDisplayBuilder()
               .setContent(
@@ -539,9 +539,9 @@ module.exports = {
 
       let errorMessage = error.message;
       if (error.code === 'UND_ERR_CONNECT_TIMEOUT' || error.message.includes('fetch failed')) {
-        errorMessage = "The music server is currently unreachable. Please try again or contact support.";
+        errorMessage = "Müzik sunucusuna şu anda ulaşılamıyor. Lütfen tekrar deneyin veya destek ile iletişime geçin.";
       } else {
-        errorMessage = `An error occurred: ${error.message}`;
+        errorMessage = `Bir hata oluştu: ${error.message}`;
       }
 
       const errorDisplay = new TextDisplayBuilder()
@@ -621,8 +621,8 @@ module.exports = {
     if (!query) {
       const usageDisplay = new TextDisplayBuilder()
         .setContent(
-          `**${client.emoji.dot} Usage** \`:\` \`${prefix}play [Song Name/URL]\`\n` +
-          `**${client.emoji.dot} Example** \`:\` \`${prefix}play imagine dragons believer\``
+          `**${client.emoji.dot} Kullanım** \`:\` \`${prefix}play [Şarkı Adı/URL]\`\n` +
+          `**${client.emoji.dot} Örnek** \`:\` \`${prefix}play imagine dragons believer\``
         );
 
       const container = new ContainerBuilder()
@@ -637,7 +637,7 @@ module.exports = {
     const channel = message.member.voice.channel;
     if (!channel) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.warn} You need to be in a voice channel first.**`);
+        .setContent(`**${client.emoji.warn} Önce bir ses kanalında olmalısın.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -662,7 +662,7 @@ module.exports = {
       ])
     ) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.warn} I don't have enough permissions! Please give me \`CONNECT\` and \`SPEAK\`.**`);
+        .setContent(`**${client.emoji.warn} Yeterli iznim yok! Lütfen bana \`CONNECT\` ve \`SPEAK\` izinlerini ver.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -687,8 +687,7 @@ module.exports = {
 
       if (!hasAvailableNodes(client.manager)) {
         const errorDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.cross} The music server is currently unavailable. Please try again later.**`);
-
+        .setContent(`**${client.emoji.cross} Müzik sunucusu şu anda kullanılamıyor. Lütfen daha sonra tekrar deneyin.**`);
         const container = new ContainerBuilder()
           .addTextDisplayComponents(errorDisplay);
 
@@ -769,7 +768,7 @@ module.exports = {
       } else {
         if (player.voiceId !== channel.id) {
           const errorDisplay = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.warn} I'm already connected to a different voice channel.**`);
+            .setContent(`**${client.emoji.warn} Zaten farklı bir ses kanalına bağlıyım.**`);
 
           const container = new ContainerBuilder()
             .addTextDisplayComponents(errorDisplay);
@@ -819,7 +818,7 @@ module.exports = {
 
       if (!searchResult || !searchResult.tracks || !searchResult.tracks.length) {
         const errorDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.cross} No result was found for "${query}"**`);
+          .setContent(`**${client.emoji.cross} "${query}" için sonuç bulunamadı**`);
 
         const container = new ContainerBuilder()
           .addTextDisplayComponents(errorDisplay);
@@ -847,7 +846,7 @@ module.exports = {
 
       if (addedTracks.length === 0) {
         const errorDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.cross} No tracks could be processed**`);
+          .setContent(`**${client.emoji.cross} Hiçbir şarkı işlenemedi**`);
 
         const container = new ContainerBuilder()
           .addTextDisplayComponents(errorDisplay);
@@ -955,7 +954,7 @@ module.exports = {
         };
 
         const titleDisplay = new TextDisplayBuilder()
-          .setContent(`### ${client.emoji.check} Track Added`);
+          .setContent(`### ${client.emoji.check} Şarkı eklendi`);
 
         const infoDisplay = new TextDisplayBuilder()
           .setContent(
@@ -1018,7 +1017,7 @@ module.exports = {
 
           collector.on('collect', async (interaction) => {
             if (!interaction.member.voice.channel || interaction.member.voice.channel.id !== player.voiceId) {
-              return interaction.reply({ content: `**${client.emoji.warn} You must be in my voice channel to use this.**`, ephemeral: true });
+              return interaction.reply({ content: `**${client.emoji.warn} Bu işlemi kullanmak için benim ses kanalımda olmalısın.**`, ephemeral: true });
             }
 
             const parts = interaction.customId.split('_');
@@ -1038,7 +1037,7 @@ module.exports = {
                   player.queue.splice(trackIndex, 1);
 
                   const updatedDisplay = new TextDisplayBuilder()
-                    .setContent(`**${client.emoji.check} Removed [${truncateTitle(removedTrack.title, 25)}](${removedTrack.uri}) from queue.**`);
+                    .setContent(`**${client.emoji.check} [${truncateTitle(removedTrack.title, 25)}](${removedTrack.uri}) sıradan kaldırıldı.**`);
 
                   const updatedContainer = new ContainerBuilder()
                     .addTextDisplayComponents(updatedDisplay);
@@ -1052,7 +1051,7 @@ module.exports = {
 
                   interaction.message.actionTaken = true;
                 } else {
-                  await interaction.reply({ content: `**${client.emoji.cross} This track is no longer in the queue.**`, ephemeral: true });
+                  await interaction.reply({ content: `**${client.emoji.cross} Bu şarkı artık sırada değil.**`, ephemeral: true });
                 }
               } catch (err) {
                 console.error('Error removing track:', err);
@@ -1070,7 +1069,7 @@ module.exports = {
                   player.queue.unshift(trackToMove);
 
                   const updatedDisplay = new TextDisplayBuilder()
-                    .setContent(`**${client.emoji.check} Moved [${truncateTitle(trackToMove.title, 25)}](${trackToMove.uri}) to next in queue.**`);
+                    .setContent(`**${client.emoji.check} [${truncateTitle(trackToMove.title, 25)}](${trackToMove.uri}) sıradaki pozisyona taşındı.**`);
 
                   const updatedContainer = new ContainerBuilder()
                     .addTextDisplayComponents(updatedDisplay);
@@ -1084,7 +1083,7 @@ module.exports = {
 
                   interaction.message.actionTaken = true;
                 } else {
-                  await interaction.reply({ content: `**${client.emoji.cross} This track is no longer in the queue.**`, ephemeral: true });
+                  await interaction.reply({ content: `**${client.emoji.cross} Bu şarkı artık sırada değil.**`, ephemeral: true });
                 }
               } catch (err) {
                 console.error('Error moving track:', err);
@@ -1095,12 +1094,11 @@ module.exports = {
           collector.on('end', () => {
             if (replyMsg && !replyMsg.deleted && !replyMsg.actionTaken) {
               const finalTitleDisplay = new TextDisplayBuilder()
-                .setContent(`### ${client.emoji.check} Track Added`);
-
+                .setContent(`### ${client.emoji.check} Şarkı eklendi`);
               const finalInfoDisplay = new TextDisplayBuilder()
                 .setContent(
-                  `> [**${truncateTitle(track.track.title, 25)}**](${track.track.uri}) by \` ${cleanAuthorName(track.track.author)} \`\n` +
-                  `> Position \` #${track.position} \` • Duration \` ${convertTime(track.track.length)} \` • By \` ${message.author.username} \``
+                  `> [**${truncateTitle(track.track.title, 25)}**](${track.track.uri}) • \` ${cleanAuthorName(track.track.author)} \`\n` +
+                  `> Sıra \` #${track.position} \` • Süre \` ${convertTime(track.track.length)} \` • Ekleyen \` ${message.author.username} \``
                 );
 
               const finalSection = new SectionBuilder()
@@ -1131,9 +1129,9 @@ module.exports = {
 
       let errorMessage = error.message;
       if (error.code === 'UND_ERR_CONNECT_TIMEOUT' || error.message.includes('fetch failed')) {
-        errorMessage = "The music server is currently unreachable. Please try again or contact support.";
+        errorMessage = "Müzik sunucusuna şu anda ulaşılamıyor. Lütfen tekrar deneyin veya destek ile iletişime geçin.";
       } else {
-        errorMessage = `An error occurred while playing: ${error.message}`;
+        errorMessage = `Oynatma sırasında bir hata oluştu: ${error.message}`;
       }
 
       const errorDisplay = new TextDisplayBuilder()

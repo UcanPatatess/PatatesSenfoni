@@ -7,7 +7,7 @@ const {
 module.exports = {
     name: "likeall",
     category: "Favourite",
-    description: "Add all songs from the current queue to your favorites",
+    description: "Geçerli kuyruktaki tüm şarkıları favorilerine ekler",
     args: false,
     usage: "",
     aliases: ["lall", "likequeue"],
@@ -57,7 +57,7 @@ module.exports = {
             const player = client.manager.getPlayer(message.guild.id);
             if (!player) {
                 const errorDisplay = new TextDisplayBuilder()
-                    .setContent(`**${client.emoji.cross} There is no queue to add to favorites!**`);
+                    .setContent(`**${client.emoji.cross} Favorilere eklenecek bir kuyruk bulunmuyor!**`);
 
                 const container = new ContainerBuilder()
                     .addTextDisplayComponents(errorDisplay);
@@ -71,7 +71,7 @@ module.exports = {
             const tracks = [player.queue.current, ...player.queue].filter(track => track);
             if (tracks.length === 0) {
                 const errorDisplay = new TextDisplayBuilder()
-                    .setContent(`**${client.emoji.cross} There are no songs in the queue!**`);
+                    .setContent(`**${client.emoji.cross} Kuyrukta şarkı yok!**`);
 
                 const container = new ContainerBuilder()
                     .addTextDisplayComponents(errorDisplay);
@@ -112,10 +112,10 @@ module.exports = {
 
             let description = ``;
             if (addedCount > 0) {
-                description += `**${client.emoji.check} Added \`${addedCount}\` songs to your favorites.**\n`;
+                description += `**${client.emoji.check} \`${addedCount}\` şarkı favorilerine eklendi.**\n`;
             }
             if (alreadyLikedCount > 0) {
-                description += `**${client.emoji.info} \`${alreadyLikedCount}\` songs were already in your favorites.**\n`;
+                description += `**${client.emoji.info} \`${alreadyLikedCount}\` şarkı zaten favorilerinde.**\n`;
             }
 
             const resultDisplay = new TextDisplayBuilder()
@@ -133,7 +133,7 @@ module.exports = {
             console.error(err);
 
             const errorDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.cross} An error occurred while adding songs to favorites!**`);
+                .setContent(`**${client.emoji.cross} Favorilere şarkı ekleme sırasında bir hata oluştu!**`);
 
             const container = new ContainerBuilder()
                 .addTextDisplayComponents(errorDisplay);

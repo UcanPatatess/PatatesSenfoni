@@ -17,7 +17,7 @@ module.exports = {
   aliases: ["rm"],
   category: "Music",
   cooldown: 3,
-  description: "Remove tracks from the queue",
+  description: "Kuyruktaki şarkıları kaldırır",
   args: false,
   usage: "[track number]",
   userPrams: [],
@@ -64,7 +64,7 @@ module.exports = {
 
     if (!player.queue.current) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.cross} Play a song first!**`);
+        .setContent(`**${client.emoji.cross} Önce bir şarkı çalın!**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -81,8 +81,8 @@ module.exports = {
       if (isNaN(position) || position < 0 || position >= player.queue.length) {
         const errorDisplay = new TextDisplayBuilder()
           .setContent(
-            `**${client.emoji.info} Invalid position** \`:\` \`${args[0]}\`\n` +
-            `**${client.emoji.info} Total songs in queue** \`:\` \`${player.queue.length}\``
+            `**${client.emoji.info} Geçersiz pozisyon** \`:\` \`${args[0]}\`\n` +
+            `**${client.emoji.info} Kuyruktaki şarkı sayısı** \`:\` \`${player.queue.length}\``
           );
 
         const container = new ContainerBuilder()
@@ -98,7 +98,7 @@ module.exports = {
       await player.queue.splice(position, 1);
 
       const successDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.check} Removed [${song.title}](${song.uri})**`);
+        .setContent(`**${client.emoji.check} [${song.title}](${song.uri}) kaldırıldı.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(successDisplay);
@@ -113,7 +113,7 @@ module.exports = {
 
     if (queue.length === 0) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.info} The queue is empty.**`);
+        .setContent(`**${client.emoji.info} Kuyruk boş.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -134,14 +134,14 @@ module.exports = {
       const pageTracks = currentQueue.slice(start, end);
 
       const headerDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.info} Remove Tracks**`);
+        .setContent(`**${client.emoji.info} Şarkıları Kaldır**`);
 
       const separator1 = new SeparatorBuilder();
 
       const infoDisplay = new TextDisplayBuilder()
         .setContent(
-          `**Queue:** \`${currentQueue.length} tracks\`\n` +
-          `**Page:** \`${page + 1} of ${Math.ceil(currentQueue.length / songsPerPage)}\``
+          `**Kuyruk:** \`${currentQueue.length} şarkı\`\n` +
+          `**Sayfa:** \`${page + 1} / ${Math.ceil(currentQueue.length / songsPerPage)}\``
         );
 
       const separator2 = new SeparatorBuilder();
@@ -171,7 +171,7 @@ module.exports = {
         const position = start + i;
         return {
           label: `${position}. ${track.title.substring(0, 90)}`,
-          description: `Duration: ${convertTime(track.length)}`,
+          description: `Süre: ${convertTime(track.length)}`,
           value: `remove_${position}`
         };
       });
@@ -179,7 +179,7 @@ module.exports = {
       return new ActionRowBuilder().addComponents(
         new StringSelectMenuBuilder()
           .setCustomId('select_track')
-          .setPlaceholder('Select tracks to remove')
+          .setPlaceholder('Kaldırılacak şarkıları seçin')
           .setMinValues(1)
           .setMaxValues(Math.min(options.length, 10))
           .addOptions(options)
@@ -191,21 +191,21 @@ module.exports = {
       return new ActionRowBuilder().addComponents(
         new ButtonBuilder()
           .setCustomId('clear_queue')
-          .setLabel('Clear Queue')
+          .setLabel('Kuyruğu Temizle')
           .setStyle(ButtonStyle.Danger),
         new ButtonBuilder()
           .setCustomId('previous')
-          .setLabel('Previous')
+          .setLabel('Önceki')
           .setStyle(ButtonStyle.Secondary)
           .setDisabled(currentTotalPages <= 1),
         new ButtonBuilder()
           .setCustomId('next')
-          .setLabel('Next')
+          .setLabel('Sonraki')
           .setStyle(ButtonStyle.Secondary)
           .setDisabled(currentTotalPages <= 1),
         new ButtonBuilder()
           .setCustomId('close_session')
-          .setLabel('Close')
+          .setLabel('Kapat')
           .setStyle(ButtonStyle.Secondary)
       );
     };
@@ -226,7 +226,7 @@ module.exports = {
         if (i.user.id === message.author.id) return true;
 
         const errorDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.cross} Only ${message.author.tag} can use this!**`);
+          .setContent(`**${client.emoji.cross} Bu işlemi yalnızca ${message.author.tag} kullanabilir!**`);
 
         const errorContainer = new ContainerBuilder()
           .addTextDisplayComponents(errorDisplay);
@@ -243,7 +243,7 @@ module.exports = {
     collector.on('collect', async (interaction) => {
       if (player.queue.length === 0 && interaction.customId !== 'clear_queue') {
         const errorDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.info} The queue is now empty.**`);
+          .setContent(`**${client.emoji.info} Kuyruk artık boş.**`);
         const errorContainer = new ContainerBuilder().addTextDisplayComponents(errorDisplay);
         await interaction.reply({ components: [errorContainer], flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2 });
         collector.stop();
@@ -272,13 +272,13 @@ module.exports = {
 
         if (player.queue.length === 0) {
           const emptyDisplay = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.check} Removed ${removedTracks.length} track(s). The queue is now empty!**`);
+            .setContent(`**${client.emoji.check} ${removedTracks.length} şarkı kaldırıldı. Kuyruk artık boş!**`);
           const emptyContainer = new ContainerBuilder().addTextDisplayComponents(emptyDisplay);
           await msg.edit({ components: [emptyContainer], flags: MessageFlags.IsComponentsV2 });
           collector.stop();
         } else {
           const successDisplay = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.check} Removed ${removedTracks.length} track(s)**`);
+            .setContent(`**${client.emoji.check} ${removedTracks.length} şarkı kaldırıldı**`);
           const successContainer = new ContainerBuilder().addTextDisplayComponents(successDisplay);
 
           await msg.edit({
@@ -324,7 +324,7 @@ module.exports = {
         player.queue.clear();
 
         const successDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.check} Cleared ${queueSize} tracks from the queue**`);
+          .setContent(`**${client.emoji.check} Kuyruktan ${queueSize} şarkı silindi**`);
 
         const successContainer = new ContainerBuilder()
           .addTextDisplayComponents(successDisplay);
@@ -345,7 +345,7 @@ module.exports = {
     collector.on('end', async (collected, reason) => {
       if (reason === 'idle' || reason === 'time') {
         const timeoutDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.info} Session timed out. Use the command again if needed.**`);
+          .setContent(`**${client.emoji.info} Oturum süresi doldu. Gerekirse komutu tekrar kullanın.**`);
         const timeoutContainer = new ContainerBuilder().addTextDisplayComponents(timeoutDisplay);
 
         await msg.edit({

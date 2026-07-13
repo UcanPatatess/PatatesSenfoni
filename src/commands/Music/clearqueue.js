@@ -9,7 +9,7 @@ module.exports = {
   aliases: ["cq", "clearq"],
   category: "Music",
   cooldown: 3,
-  description: "Removes all songs in the music queue.",
+  description: "Kuyruktaki tüm şarkıları temizler.",
   args: false,
   usage: "",
   userPrams: [],
@@ -58,7 +58,7 @@ module.exports = {
 
     if (!player.queue.current) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.cross} Play a song first.**`);
+        .setContent(`**${client.emoji.cross} Önce bir şarkı çalmalısın.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -72,7 +72,7 @@ module.exports = {
     player.queue.clear();
 
     const successDisplay = new TextDisplayBuilder()
-      .setContent(`**${client.emoji.check} Removed all songs from the queue.**`);
+      .setContent(`**${client.emoji.check} Kuyruktaki tüm şarkılar kaldırıldı.**`);
 
     const container = new ContainerBuilder()
       .addTextDisplayComponents(successDisplay);

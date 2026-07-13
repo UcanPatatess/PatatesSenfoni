@@ -15,7 +15,7 @@ module.exports = {
     category: "Music",
     aliases: ["sim", "related"],
     cooldown: 15,
-    description: "Get songs similar to currently playing track",
+    description: "Şu anda çalan parçaya benzer şarkılar çalar",
     args: false,
     usage: "",
     userPerms: [],
@@ -43,7 +43,7 @@ module.exports = {
 
         let player = client.manager.players.get(guildId);
         if (!player || !player.queue.current) {
-            const errorDisplay = new TextDisplayBuilder().setContent(`**${client.emoji.cross} No music currently playing**`);
+            const errorDisplay = new TextDisplayBuilder().setContent(`**${client.emoji.cross} Şu anda çalan müzik yok**`);
             const container = new ContainerBuilder().addTextDisplayComponents(errorDisplay);
             const options = { components: [container], flags: MessageFlags.IsComponentsV2 };
             return isSlash ? context.editReply(options) : context.reply(options);
@@ -72,7 +72,7 @@ module.exports = {
         const multiple = 5;
 
         if (tracks.length === 0) {
-            const noResultsDisplay = new TextDisplayBuilder().setContent(`**${client.emoji.cross} No similar songs found using \`${searchEngine}\`**`);
+            const noResultsDisplay = new TextDisplayBuilder().setContent(`**${client.emoji.cross} \`${searchEngine}\` kullanılarak benzer şarkı bulunamadı**`);
             const noResultsContainer = new ContainerBuilder().addTextDisplayComponents(noResultsDisplay);
             const options = { components: [noResultsContainer], flags: MessageFlags.IsComponentsV2 };
             return isSlash ? (context.deferred ? context.editReply(options) : context.reply(options)) : context.reply(options);
@@ -85,7 +85,7 @@ module.exports = {
             const headerRow = new ActionRowBuilder().addComponents(
                 new ButtonBuilder()
                     .setCustomId('sim_close')
-                    .setLabel("Close")
+                    .setLabel("Kapat")
                     .setStyle(ButtonStyle.Secondary)
             );
             container.addActionRowComponents(headerRow);
@@ -97,7 +97,7 @@ module.exports = {
             currentBatch.forEach((track, i) => {
                 const index = start + i + 1;
                 const duration = convertTime(track.length || 0);
-                const authorName = (track.author || 'Unknown Artist').replace(/\s*-\s*Topic\s*$/i, '').trim();
+const authorName = (track.author || 'Bilinmeyen Sanatçı').replace(/\s*-\s*Topic\s*$/i, '').trim();
 
                 const section = new SectionBuilder();
                 section.addTextDisplayComponents(
@@ -116,7 +116,7 @@ module.exports = {
 
             container.addSeparatorComponents(new SeparatorBuilder());
             container.addTextDisplayComponents(new TextDisplayBuilder().setContent(
-                `-# Page ${p + 1}/${totalPages} • Searching similar for: ${currentTrack.title.substring(0, 30)}...`
+                `-# Sayfa ${p + 1}/${totalPages} • Şuna benzer arama yapılıyor: ${currentTrack.title.substring(0, 30)}...`
             ));
 
             return container;
@@ -128,17 +128,17 @@ module.exports = {
             return new ActionRowBuilder().addComponents(
                 new ButtonBuilder()
                     .setCustomId('sim_prev')
-                    .setLabel('Previous')
+                    .setLabel('Önceki')
                     .setStyle(ButtonStyle.Secondary)
                     .setDisabled(p === 0),
                 new ButtonBuilder()
                     .setCustomId('sim_next')
-                    .setLabel('Next')
+                    .setLabel('Sonraki')
                     .setStyle(ButtonStyle.Secondary)
                     .setDisabled(p === totalPages - 1 || totalPages === 0),
                 new ButtonBuilder()
                     .setCustomId('sim_all')
-                    .setLabel('Queue All')
+                    .setLabel('Hepsini Kuyruğa Ekle')
                     .setStyle(ButtonStyle.Secondary)
                     .setDisabled(tracks.length === 0)
             );
@@ -180,7 +180,7 @@ module.exports = {
                 if (!player.playing && !player.paused) await player.play();
 
                 const successDisplay = new TextDisplayBuilder()
-                    .setContent(`**${client.emoji.check} Added [${track.title}](${track.uri}) to queue.**`);
+                    .setContent(`**${client.emoji.check} [${track.title}](${track.uri}) kuyruğa eklendi.**`);
                 const successContainer = new ContainerBuilder().addTextDisplayComponents(successDisplay);
 
                 return i.channel.send({ components: [successContainer], flags: MessageFlags.IsComponentsV2 });
@@ -190,7 +190,7 @@ module.exports = {
                 if (!player.playing && !player.paused) await player.play();
 
                 const successDisplay = new TextDisplayBuilder()
-                    .setContent(`**${client.emoji.check} Added all ${tracks.length} similar tracks to queue.**`);
+                    .setContent(`**${client.emoji.check} Tüm ${tracks.length} benzer şarkı kuyruğa eklendi.**`);
                 const successContainer = new ContainerBuilder().addTextDisplayComponents(successDisplay);
 
                 return i.channel.send({ components: [successContainer], flags: MessageFlags.IsComponentsV2 });

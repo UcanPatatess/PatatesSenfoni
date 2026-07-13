@@ -10,7 +10,7 @@ module.exports = {
   name: "stop",
   category: "Music",
   cooldown: 3,
-  description: "Stops the music",
+  description: "Müziği durdurur",
   args: false,
   usage: "",
   userPrams: [],
@@ -59,7 +59,7 @@ module.exports = {
 
     if (!player.queue.current) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.cross} Play a song first!**`);
+        .setContent(`**${client.emoji.cross} Önce bir şarkı çal!**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -78,7 +78,7 @@ module.exports = {
     await Wait(500);
 
     const successDisplay = new TextDisplayBuilder()
-      .setContent(`**${client.emoji.check} Stopped the music**`);
+      .setContent(`**${client.emoji.check} Müzik durduruldu**`);
 
     const container = new ContainerBuilder()
       .addTextDisplayComponents(successDisplay);

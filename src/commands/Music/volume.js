@@ -14,9 +14,9 @@ module.exports = {
   aliases: ["v", "vol"],
   category: "Music",
   cooldown: 3,
-  description: "Change volume of currently playing music",
+  description: "Şu anda çalan müziğin ses seviyesini değiştir",
   args: false,
-  usage: "[volume 0-100]",
+  usage: "[ses seviyesi 0-100]",
   userPrams: [],
   botPrams: ["EmbedLinks"],
   dj: true,
@@ -37,7 +37,7 @@ module.exports = {
   async slashExecute(interaction, client) {
     const player = client.manager.players.get(interaction.guild.id);
     if (!player.queue.current) {
-      const errorDisplay = new TextDisplayBuilder().setContent(`**${client.emoji.warn} Play a song first.**`);
+      const errorDisplay = new TextDisplayBuilder().setContent(`**${client.emoji.warn} Önce bir şarkı çal.**`);
       const container = new ContainerBuilder().addTextDisplayComponents(errorDisplay);
       return interaction.reply({ components: [container], flags: MessageFlags.IsComponentsV2 });
     }
@@ -46,8 +46,8 @@ module.exports = {
     if (volume === null) {
       const volumeDisplay = new TextDisplayBuilder()
         .setContent(
-          `**Volume !**\n` +
-          `${client.emoji.blank}${client.emoji.wickarrow} **Current Volume : \`${player.volume}%\`**`
+          `**Ses Seviyesi !**\n` +
+          `${client.emoji.blank}${client.emoji.wickarrow} **Mevcut Ses : \`${player.volume}%\`**`
         );
 
       const container = new ContainerBuilder()
@@ -57,7 +57,7 @@ module.exports = {
     }
 
     if (volume < 0 || volume > 100) {
-      const errorDisplay = new TextDisplayBuilder().setContent(`**${client.emoji.cross} Volume must be between 0 and 100.**`);
+      const errorDisplay = new TextDisplayBuilder().setContent(`**${client.emoji.cross} Ses seviyesi 0 ile 100 arasında olmalıdır.**`);
       const container = new ContainerBuilder().addTextDisplayComponents(errorDisplay);
       return interaction.reply({ components: [container], flags: MessageFlags.IsComponentsV2 });
     }
@@ -66,8 +66,8 @@ module.exports = {
 
     const successDisplay = new TextDisplayBuilder()
       .setContent(
-        `**Volume !**\n` +
-        `${client.emoji.blank}${client.emoji.wickarrow} **Volume Updated : \`${volume}%\`**`
+        `**Ses Seviyesi !**\n` +
+        `${client.emoji.blank}${client.emoji.wickarrow} **Ses Güncellendi : \`${volume}%\`**`
       );
 
     const container = new ContainerBuilder()
@@ -81,7 +81,7 @@ module.exports = {
 
     if (!player.queue.current) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.warn} Play a song first.**`);
+        .setContent(`**${client.emoji.warn} Önce bir şarkı çal.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -98,8 +98,8 @@ module.exports = {
       if (isNaN(volume) || volume < 0 || volume > 100) {
         const errorDisplay = new TextDisplayBuilder()
           .setContent(
-            `**${client.emoji.cross} Usage** \`:\` \`${prefix}volume [0-100]\`\n` +
-            `${client.emoji.wickarrow} **__Current Volume__ :** \`${player.volume}%\``
+            `**${client.emoji.cross} Kullanım** \`:\` \`${prefix}volume [0-100]\`\n` +
+            `${client.emoji.wickarrow} **__Mevcut Ses__ :** \`${player.volume}%\``
           );
 
         const container = new ContainerBuilder()
@@ -116,8 +116,8 @@ module.exports = {
 
       const successDisplay = new TextDisplayBuilder()
         .setContent(
-          `**Volume !**\n` +
-          `${client.emoji.blank}${client.emoji.wickarrow} **Volume Updated :** \`${volume}%\``
+          `**Ses Seviyesi !**\n` +
+          `${client.emoji.blank}${client.emoji.wickarrow} **Ses Güncellendi :** \`${volume}%\``
         );
 
       const container = new ContainerBuilder()
@@ -132,8 +132,8 @@ module.exports = {
     const createVolumeContainer = (currentVol) => {
       const volumeDisplay = new TextDisplayBuilder()
         .setContent(
-          `**Volume !**\n` +
-          `${client.emoji.blank}${client.emoji.wickarrow} **Current Volume :** \`${currentVol}%\``
+          `**Ses Seviyesi !**\n` +
+          `${client.emoji.blank}${client.emoji.wickarrow} **Mevcut Ses :** \`${currentVol}%\``
         );
 
       const buttons = new ActionRowBuilder().addComponents(
@@ -169,7 +169,7 @@ module.exports = {
         const currentPlayer = client.manager.players.get(message.guild.id);
         if (!currentPlayer) {
           const errorDisplay = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.cross} Player not found.**`);
+            .setContent(`**${client.emoji.cross} Oynatıcı bulunamadı.**`);
 
           const errorContainer = new ContainerBuilder()
             .addTextDisplayComponents(errorDisplay);
@@ -204,7 +204,7 @@ module.exports = {
         console.error("Volume control error:", error);
 
         const errorDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.cross} An error occurred while adjusting volume.**`);
+          .setContent(`**${client.emoji.cross} Ses seviyesi ayarlanırken bir hata oluştu.**`);
 
         const errorContainer = new ContainerBuilder()
           .addTextDisplayComponents(errorDisplay);
@@ -223,8 +223,8 @@ module.exports = {
 
         const volumeDisplay = new TextDisplayBuilder()
           .setContent(
-            `**Volume !**\n` +
-            `${client.emoji.blank}${client.emoji.wickarrow} **Current Volume : \`${finalVolume}%\`**`
+            `**Ses Seviyesi !**\n` +
+            `${client.emoji.blank}${client.emoji.wickarrow} **Mevcut Ses : \`${finalVolume}%\`**`
           );
 
         const finalContainer = new ContainerBuilder()

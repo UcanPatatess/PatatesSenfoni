@@ -10,7 +10,7 @@ module.exports = {
     aliases: ["back", "prev"],
     category: "Music",
     cooldown: 3,
-    description: "Play the previous song from history",
+    description: "Geçmişten, önceki şarkıyı çalar",
     args: false,
     usage: "",
     userPrams: [],
@@ -60,7 +60,7 @@ module.exports = {
 
         if (history.length === 0) {
             const infoDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.info} No previous songs in history.**`);
+                .setContent(`**${client.emoji.info} Geçmişte, önceki şarkı yok.**`);
 
             const container = new ContainerBuilder()
                 .addTextDisplayComponents(infoDisplay);
@@ -85,7 +85,7 @@ module.exports = {
 
             if (!searchResult || !searchResult.tracks || searchResult.tracks.length === 0) {
                 const errorDisplay = new TextDisplayBuilder()
-                    .setContent(`**${client.emoji.cross} Could not find the previous track.**`);
+                    .setContent(`**${client.emoji.cross} Önceki şarkı bulunamadı.**`);
 
                 const container = new ContainerBuilder()
                     .addTextDisplayComponents(errorDisplay);
@@ -114,7 +114,7 @@ module.exports = {
             await player.skip();
 
             const successDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.check} Playing previous song: [${previousTrack.title}](${previousTrack.uri})**`);
+                .setContent(`**${client.emoji.check} Önceki şarkı çalınıyor: [${previousTrack.title}](${previousTrack.uri})**`);
 
             const container = new ContainerBuilder()
                 .addTextDisplayComponents(successDisplay);
@@ -132,7 +132,7 @@ module.exports = {
             console.error("Error playing previous track:", error);
 
             const errorDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.cross} Failed to play previous track.**`);
+                .setContent(`**${client.emoji.cross} Önceki şarkıyı çalmak başarısız oldu.**`);
 
             const container = new ContainerBuilder()
                 .addTextDisplayComponents(errorDisplay);

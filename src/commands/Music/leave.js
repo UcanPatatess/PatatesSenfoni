@@ -11,7 +11,7 @@ module.exports = {
   aliases: ["dc", "disconnect"],
   category: "Music",
   cooldown: 3,
-  description: "Leave voice channel",
+  description: "Ses kanalından ayrılır",
   args: false,
   usage: "",
   userPrams: [],
@@ -59,7 +59,7 @@ module.exports = {
 
     if (!player) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.cross} I'm not in any voice channel!**`);
+        .setContent(`**${client.emoji.cross} Herhangi bir ses kanalında değilim!**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -81,8 +81,8 @@ module.exports = {
     if (twoFourSeven) {
       const successDisplay = new TextDisplayBuilder()
         .setContent(
-          `**${client.emoji.check} Left the voice channel.**\n` +
-          `**${client.emoji.info} 247 mode is active - I'll rejoin automatically.**`
+          `**${client.emoji.check} Ses kanalından ayrıldım.**\n` +
+          `**${client.emoji.info} 247 modu etkin - Otomatik olarak tekrar Bağlanıcam :3.**`
         );
 
       const container = new ContainerBuilder()
@@ -100,7 +100,7 @@ module.exports = {
     }
 
     const successDisplay = new TextDisplayBuilder()
-      .setContent(`**${client.emoji.check} Left the voice channel.**`);
+      .setContent(`**${client.emoji.check} Ses kanalından ayrıldım.**`);
 
     const container = new ContainerBuilder()
       .addTextDisplayComponents(successDisplay);

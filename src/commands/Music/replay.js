@@ -10,7 +10,7 @@ module.exports = {
   aliases: ["restart", "rp"],
   category: "Music",
   cooldown: 3,
-  description: "Replay the current song from the beginning",
+  description: "Mevcut şarkıyı baştan oynatır",
   args: false,
   usage: "",
   userPrams: [],
@@ -58,7 +58,7 @@ module.exports = {
 
     if (!player.queue.current) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.warn} Play a song first.**`);
+        .setContent(`**${client.emoji.warn} Önce bir şarkı çalın.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -75,7 +75,7 @@ module.exports = {
       await player.seek(0);
 
       const successDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.check} Replaying [${currentTrack.title}](${currentTrack.uri})**`);
+        .setContent(`**${client.emoji.check} [${currentTrack.title}](${currentTrack.uri}) yeniden oynatılıyor**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(successDisplay);
@@ -93,7 +93,7 @@ module.exports = {
       console.error("Error replaying track:", error);
 
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.cross} Failed to replay the track.**`);
+        .setContent(`**${client.emoji.cross} Şarkı yeniden oynatılamadı.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);

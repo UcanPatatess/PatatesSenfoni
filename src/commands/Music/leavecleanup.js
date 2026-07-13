@@ -10,7 +10,7 @@ module.exports = {
     name: "leavecleanup",
     aliases: ["lc"],
     category: "Music",
-    description: "Removes absent user's songs from the queue",
+    description: "Ayrılan kullanıcıların şarkılarını kuyruktan kaldırır",
     args: false,
     usage: "",
     userPerms: [],
@@ -57,7 +57,7 @@ module.exports = {
 
         if (!player.queue.current) {
             const errorDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.cross} Nothing is playing right now.**`);
+                .setContent(`**${client.emoji.cross} Şu anda hiçbir şey çalmıyor.**`);
 
             const container = new ContainerBuilder()
                 .addTextDisplayComponents(errorDisplay);
@@ -72,7 +72,7 @@ module.exports = {
 
         if (queue.length === 0) {
             const errorDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.info} The queue is empty.**`);
+                .setContent(`**${client.emoji.info} Kuyruk boş.**`);
 
             const container = new ContainerBuilder()
                 .addTextDisplayComponents(errorDisplay);
@@ -86,7 +86,7 @@ module.exports = {
         const voiceChannel = message.member.voice.channel;
         if (!voiceChannel) {
             const errorDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.cross} You need to be in a voice channel!**`);
+                .setContent(`**${client.emoji.cross} Bir ses kanalında olmalısın!**`);
 
             const container = new ContainerBuilder()
                 .addTextDisplayComponents(errorDisplay);
@@ -119,7 +119,7 @@ module.exports = {
 
         if (removedTracks.length === 0) {
             const infoDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.info} No songs found from users who left the voice channel.**`);
+                .setContent(`**${client.emoji.info} Ses kanalından ayrılan kullanıcıların hiçbir şarkısı bulunamadı**`);
 
             const container = new ContainerBuilder()
                 .addTextDisplayComponents(infoDisplay);
@@ -131,14 +131,12 @@ module.exports = {
         }
 
         const headerDisplay = new TextDisplayBuilder()
-            .setContent(`**${client.emoji.check} Leave Cleanup Complete**`);
+            .setContent(`**${client.emoji.check} Ayrılan Kullanıcı Temizliği Tamamlandı**`);
 
         const separator = new SeparatorBuilder();
 
         const statsDisplay = new TextDisplayBuilder()
-            .setContent(
-                `Removed \`${removedTracks.length}\` track${removedTracks.length !== 1 ? 's' : ''} of \`${removedUsers.size}\` user${removedUsers.size !== 1 ? 's' : ''}.`
-            );
+            .setContent(`**\`${removedUsers.size}\` kullanıcının \`${removedTracks.length}\` şarkısı kaldırıldı.**`);
 
         const container = new ContainerBuilder()
             .addTextDisplayComponents(headerDisplay)

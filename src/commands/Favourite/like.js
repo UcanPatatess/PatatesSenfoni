@@ -7,7 +7,7 @@ const {
 module.exports = {
   name: "like",
   category: "Favourite",
-  description: "Add current song to your favorites",
+  description: "Şu anda çalan şarkıyı favorilerine ekler",
   args: false,
   usage: "",
   aliases: ["fav", "favourite", "favorite"],
@@ -54,7 +54,7 @@ module.exports = {
     const player = client.manager.players.get(message.guild.id);
     if (!player.queue.current) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.cross} Nothing is playing right now.**`);
+        .setContent(`**${client.emoji.cross} Şu anda hiçbir şey çalmıyor.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -74,7 +74,7 @@ module.exports = {
       const songExists = songs.find(s => s.url === song.uri);
       if (songExists) {
         const infoDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.info} This song is already in your favorites!**`);
+          .setContent(`**${client.emoji.info} Bu şarkı zaten favorilerinde!**`);
 
         const container = new ContainerBuilder()
           .addTextDisplayComponents(infoDisplay);
@@ -96,7 +96,7 @@ module.exports = {
       client.db.liked.set(userId, songs);
 
       const successDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.check} Added [${song.title}](${song.uri}) to your favorites!** `);
+        .setContent(`**${client.emoji.check} [${song.title}](${song.uri}) favorilerine eklendi!** `);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(successDisplay);
@@ -110,7 +110,7 @@ module.exports = {
       console.error(err);
 
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.cross} An error occurred while saving to favorites.**`);
+        .setContent(`**${client.emoji.cross} Favorilere kaydetme sırasında bir hata oluştu.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);

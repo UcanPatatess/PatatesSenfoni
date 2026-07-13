@@ -14,7 +14,7 @@ module.exports = {
     aliases: ["played", "recent"],
     category: "Music",
     cooldown: 3,
-    description: "Show the history of recently played songs",
+    description: "Son çalınan şarkıları gösterir.",
     args: false,
     usage: "",
     userPrams: [],
@@ -65,8 +65,8 @@ module.exports = {
         if (history.length === 0) {
             const infoDisplay = new TextDisplayBuilder()
                 .setContent(
-                    `**${client.emoji.info} No songs in history yet.**\n` +
-                    `**${client.emoji.info} Songs will appear here after they finish playing.**`
+                    `**${client.emoji.info} Geçmişte henüz hiç şarkı bulunmuyor.**\n` +
+                    `**${client.emoji.info} Çalınan şarkılar tamamlandıktan sonra burada görünecek.**`
                 );
 
             const container = new ContainerBuilder()
@@ -99,7 +99,7 @@ module.exports = {
             });
 
             const headerDisplay = new TextDisplayBuilder()
-                .setContent(`**${client.emoji.info} Recently Played Songs**`);
+                .setContent(`**${client.emoji.info} Son Çalınan Şarkılar**`);
 
             const separator = new SeparatorBuilder();
 
@@ -118,19 +118,19 @@ module.exports = {
             const row = new ActionRowBuilder().addComponents(
                 new ButtonBuilder()
                     .setCustomId('home')
-                    .setLabel('Home')
+                    .setLabel('İlk Sayfa')
                     .setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder()
                     .setCustomId('prev')
-                    .setLabel('Previous')
+                    .setLabel('Önceki')
                     .setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder()
                     .setCustomId('next')
-                    .setLabel('Next')
+                    .setLabel('Sonraki')
                     .setStyle(ButtonStyle.Secondary),
                 new ButtonBuilder()
                     .setCustomId('close')
-                    .setLabel('Close')
+                    .setLabel('Kapat')
                     .setStyle(ButtonStyle.Danger)
             );
             components.push(row);
@@ -147,7 +147,7 @@ module.exports = {
                     if (i.user.id === message.author.id) return true;
 
                     const errorDisplay = new TextDisplayBuilder()
-                        .setContent(`**${client.emoji.cross} Only ${message.author.tag} can use this button.**`);
+                        .setContent(`**${client.emoji.cross} Bu butonu yalnızca ${message.author.tag} kullanabilir!**`);
 
                     const errorContainer = new ContainerBuilder()
                         .addTextDisplayComponents(errorDisplay);

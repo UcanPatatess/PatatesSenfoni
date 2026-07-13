@@ -11,7 +11,7 @@ const {
 module.exports = {
   name: "showliked",
   category: "Favourite",
-  description: "Show your favorite songs",
+  description: "Favori şarkılarını görüntüle",
   args: false,
   usage: "",
   aliases: ["liked", "favorites", "favourites"],
@@ -61,7 +61,7 @@ module.exports = {
       const songs = client.db.liked.get(userId);
       if (!songs || !songs.length) {
         const infoDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.info} You don't have any favorite songs yet!**`);
+          .setContent(`**${client.emoji.info} Favorilerinde hiç şarkı yok!**`);
 
         const container = new ContainerBuilder()
           .addTextDisplayComponents(infoDisplay);
@@ -82,16 +82,16 @@ module.exports = {
         const currentSongs = songs.slice(start, end);
 
         const headerDisplay = new TextDisplayBuilder()
-          .setContent(`**${client.emoji.check} Tracks you added to liked songs :**`);
+          .setContent(`**${client.emoji.check} Favorilerine eklediğin şarkılar :**`);
 
         const separator = new SeparatorBuilder();
 
         const formatDuration = (ms) => {
-          if (!ms || ms === 0 || ms === 'Unknown') return 'Unknown';
+          if (!ms || ms === 0 || ms === 'Bilinmiyor') return 'Bilinmiyor';
           if (typeof ms === 'string' && ms.includes(':')) return ms;
 
           const duration = parseInt(ms);
-          if (isNaN(duration)) return 'Unknown';
+          if (isNaN(duration)) return 'Bilinmiyor';
 
           const seconds = Math.floor((duration / 1000) % 60);
           const minutes = Math.floor((duration / (1000 * 60)) % 60);
@@ -120,19 +120,19 @@ module.exports = {
         const row = new ActionRowBuilder().addComponents(
           new ButtonBuilder()
             .setCustomId('home')
-            .setLabel('Home')
+            .setLabel('İlk Sayfa')
             .setStyle(ButtonStyle.Secondary),
           new ButtonBuilder()
             .setCustomId('prev')
-            .setLabel('Previous')
+            .setLabel('Önceki')
             .setStyle(ButtonStyle.Secondary),
           new ButtonBuilder()
             .setCustomId('next')
-            .setLabel('Next')
+            .setLabel('Sonraki')
             .setStyle(ButtonStyle.Secondary),
           new ButtonBuilder()
             .setCustomId('close')
-            .setLabel('Close')
+            .setLabel('Kapat')
             .setStyle(ButtonStyle.Danger)
         );
         components.push(row);
@@ -181,7 +181,7 @@ module.exports = {
       console.error(err);
 
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.cross} An error occurred while fetching your favorites.**`);
+        .setContent(`**${client.emoji.cross} Favorilerin yüklenirken bir hata oluştu.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);

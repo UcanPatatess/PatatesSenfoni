@@ -11,7 +11,7 @@ module.exports = {
   aliases: ["j"],
   category: "Music",
   cooldown: 3,
-  description: "Join voice channel",
+  description: "Ses kanalına katılır",
   args: false,
   usage: "",
   userPrams: [],
@@ -25,7 +25,7 @@ module.exports = {
   async slashExecute(interaction, client) {
     if (!interaction.member.voice.channel) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.warn} You must be in a voice channel to use this command.**`);
+        .setContent(`**${client.emoji.warn} Bu komutu kullanmak için bir ses kanalında olmalısınız.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -41,7 +41,7 @@ module.exports = {
 
     if (player) {
       const warnDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.warn} I'm already connected to <#${player.voiceId}>**`);
+        .setContent(`**${client.emoji.warn} Zaten <#${player.voiceId}> ses kanalındayım.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(warnDisplay);
@@ -54,7 +54,7 @@ module.exports = {
 
     if (!interaction.guild.members.me.permissions.has(PermissionsBitField.resolve(["Speak", "Connect"]))) {
       const errorDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.warn} I don't have enough permissions to execute this command! Please give me permission \`CONNECT\` or \`SPEAK\`.**`);
+        .setContent(`**${client.emoji.warn} Bu komutu çalıştırmak için yeterli iznim yok! Lütfen bana CONNECT veya SPEAK izni ver.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(errorDisplay);
@@ -75,7 +75,7 @@ module.exports = {
     });
 
     const successDisplay = new TextDisplayBuilder()
-      .setContent(`**${client.emoji.check} Joined <#${channel.id}> and bound to <#${interaction.channel.id}>**`);
+      .setContent(`**${client.emoji.check} <#${channel.id}> ses kanalına katıldım ve <#${interaction.channel.id}> kanalına bağlandım.**`);
 
     const container = new ContainerBuilder()
       .addTextDisplayComponents(successDisplay);
@@ -90,7 +90,7 @@ module.exports = {
     if (!message.guild.members.me.permissionsIn(message.channel).has(PermissionsBitField.Flags.SendMessages)) {
       try {
         await message.author.send({
-          content: `I don't have permission to send messages in <#${message.channel.id}> in **${message.guild.name}**`
+          content: `${message.guild.name} sunucusundaki <#${message.channel.id}> kanalında mesaj göndermek için iznim yok.`
         });
       } catch (e) { }
       return;
@@ -101,7 +101,7 @@ module.exports = {
 
     if (player) {
       const warnDisplay = new TextDisplayBuilder()
-        .setContent(`**${client.emoji.warn} I'm already connected to <#${player.voiceId}>**`);
+        .setContent(`**${client.emoji.warn} Zaten <#${player.voiceId}> ses kanalına bağlıyım.**`);
 
       const container = new ContainerBuilder()
         .addTextDisplayComponents(warnDisplay);
@@ -119,7 +119,7 @@ module.exports = {
     ) {
       const errorDisplay = new TextDisplayBuilder()
         .setContent(
-          `**${client.emoji.warn} I don't have enough permissions to execute this command! Please give me permission \`CONNECT\` or \`SPEAK\`.**`
+          `**${client.emoji.warn} Bu komutu çalıştırmak için yeterli iznim yok! Lütfen bana \`CONNECT\` veya \`SPEAK\` izni ver.**`
         );
 
       const container = new ContainerBuilder()
@@ -142,7 +142,7 @@ module.exports = {
 
     const successDisplay = new TextDisplayBuilder()
       .setContent(
-        `**${client.emoji.check} Joined <#${channel.id}> and bound to <#${message.channel.id}>**`
+        `**${client.emoji.check} <#${channel.id}> ses kanalına katıldım ve <#${message.channel.id}> kanalına bağlandım.**`
       );
 
     const container = new ContainerBuilder()
