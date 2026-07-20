@@ -221,14 +221,29 @@ module.exports = {
       }
 
       let searchResult;
-      try {
-        searchResult = await player.search(query, {
-          requester: interaction.user,
-          engine: isUrl ? undefined : searchEngine
-        });
-      } catch (err) {
-        console.error(`Search error:`, err);
-        searchResult = { tracks: [] };
+      for (let attempt = 1; attempt <= 2; attempt++) {
+          try {
+              searchResult = await player.search(query, {
+                  requester: interaction.user,
+                  engine: isUrl ? undefined : searchEngine
+              });
+
+              if (searchResult?.tracks?.length) {
+                  break;
+              }
+
+              throw new Error("No tracks returned.");
+          } catch (err) {
+              console.error(`Search attempt ${attempt} failed:`, err);
+
+              if (attempt === 2) {
+                  searchResult = { tracks: [] };
+                  break;
+              }
+
+              // Wait 1 second before retrying
+              await new Promise(resolve => setTimeout(resolve, 1000));
+          }
       }
 
       if (!searchResult || !searchResult.tracks || !searchResult.tracks.length) {
@@ -806,13 +821,28 @@ module.exports = {
           if (userPref && userPref.musicSource) searchEngine = userPref.musicSource;
         } catch (error) { }
 
-        try {
-          searchResult = await player.search(query, {
-            requester: message.author,
-            engine: isUrl ? undefined : searchEngine
-          });
-        } catch (err) {
-          console.error(`Search error:`, err);
+        for (let attempt = 1; attempt <= 2; attempt++) {
+            try {
+                searchResult = await player.search(query, {
+                    requester: message.author,
+                    engine: isUrl ? undefined : searchEngine
+                });
+
+                if (searchResult?.tracks?.length) {
+                    break;
+                }
+
+                throw new Error("No tracks returned.");
+            } catch (err) {
+                console.error(`Search attempt ${attempt} failed:`, err);
+
+                if (attempt === 2) {
+                    searchResult = { tracks: [] };
+                    break;
+                }
+
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
         }
       }
 
